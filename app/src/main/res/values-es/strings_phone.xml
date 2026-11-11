@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">Vincular de forma inalámbrica</string>
+    <string name="phone_start_helper">Iniciar asistente del teléfono</string>
+    <string name="phone_start_helper_sub">Si ya está vinculado, se inicia directamente. La accesibilidad puede leer el código la primera vez.</string>
+    <string name="phone_pair_wireless">Iniciar de forma inalámbrica</string>
     <string name="phone_title">Configurar el control del teléfono</string>
     <string name="phone_intro">Mika usa las apps por ti en una pantalla virtual aparte, así que puedes seguir usando tu teléfono. Para ello aprovecha la “Depuración por USB” y la “Depuración inalámbrica” que trae Android: vinculas una vez y, desde entonces, Mika se conecta sola, sin ordenador. Las tareas web y de archivos funcionan sin esto. No cambies ningún otro interruptor de las Opciones de desarrollador a menos que Mika te lo pida: algunos pueden borrar tu teléfono.</string>
     <string name="phone_later">Ahora no</string>

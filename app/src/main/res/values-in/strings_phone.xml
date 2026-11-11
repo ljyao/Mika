@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">Pasangkan secara nirkabel</string>
+    <string name="phone_start_helper">Mulai asisten ponsel</string>
+    <string name="phone_start_helper_sub">Jika sudah dipasangkan, asisten langsung dimulai. Saat pertama kali, aksesibilitas dapat membaca kode.</string>
+    <string name="phone_pair_wireless">Mulai secara nirkabel</string>
     <string name="phone_title">Siapkan kontrol ponsel</string>
     <string name="phone_intro">Mika memakai aplikasi untuk Anda di layar virtual terpisah, jadi Anda tetap bisa memakai ponsel. Untuk itu Mika meminjam fitur bawaan Android “Proses debug USB” dan “Proses debug nirkabel”: pasangkan sekali, lalu Mika tersambung otomatis seterusnya — tanpa komputer. Tugas web dan berkas berjalan tanpa ini. Jangan ubah sakelar lain di Opsi developer kecuali diminta Mika: beberapa bisa menghapus isi ponsel Anda.</string>
     <string name="phone_later">Nanti saja</string>

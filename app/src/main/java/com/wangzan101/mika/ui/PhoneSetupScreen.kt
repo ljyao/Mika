@@ -231,7 +231,12 @@ fun PhoneSetupScreen(status: SystemStatus, repair: Boolean, onFix: (Fix) -> Unit
         onWirelessPairing = {
             revisit = null
             confirmed = confirmed - SetupStep.WirelessDebugging
+            accessibilitySkipped = false
             pairing.startRepair()
+            if (status.accessibility == com.wangzan101.mika.settings.AccessibilityState.On) {
+                pairing.begin()
+                onFix(Fix.OpenWirelessDebugging)
+            }
         },
     )
     // 卡在哪一步都能把诊断信息发给作者:用的是引导页此刻的输入,用户确认过的步骤也在里面

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">使用无线配对</string>
+    <string name="phone_start_helper">启动手机助手</string>
+    <string name="phone_start_helper_sub">已配对时直接启动；首次配对开启无障碍后可自动读取配对码。</string>
+    <string name="phone_pair_wireless">无线启动</string>
     <string name="phone_title">设置手机操作</string>
     <string name="phone_intro">Mika 在一块单独的虚拟屏上替你操作 App,你可以照常用手机。为此要借用安卓自带的「USB 调试」和「无线调试」:配对一次就行,之后 Mika 会自动连接,不需要电脑。网页和文件类的事不受影响,不设置也能做。开发者选项里 Mika 没提到的开关都不要动,有的会清除手机数据。</string>
     <string name="phone_later">稍后再说</string>
@@ -136,7 +138,7 @@
     <string name="phone_usb_copy">复制</string>
     <string name="phone_usb_copied">命令已复制</string>
     <string name="phone_usb_again_title">再运行一次启动命令</string>
-    <string name="phone_usb_again_body">用数据线连上电脑并运行这条命令；手机支持无线调试时，也可点击上面的「使用无线配对」。</string>
+    <string name="phone_usb_again_body">用数据线连上电脑并运行这条命令；手机支持无线调试时，也可点击上面的「无线启动」。</string>
     <string name="phone_success_note_usb">请保持 USB 调试开启。助手停止后，可在 Mika 中使用无线配对，或重新运行 USB 命令。</string>
     <string name="phone_usage_note_usb">助手由 USB 启动，请保持 USB 调试开启。助手停止后，支持无线调试的手机可使用无线配对，也可再次运行 USB 命令。</string>
     <string name="fail_root_denied">root 授权被拒绝了</string>

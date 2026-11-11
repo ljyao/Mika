@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">Pair wirelessly</string>
+    <string name="phone_start_helper">Start phone helper</string>
+    <string name="phone_start_helper_sub">If already paired, start directly. For first-time pairing, accessibility can read the code.</string>
+    <string name="phone_pair_wireless">Start wirelessly</string>
     <string name="phone_title">Set up phone control</string>
     <string name="phone_intro">Mika uses apps for you on a separate virtual screen, so you can keep using your phone. For this it borrows Android’s built-in “USB debugging” and “Wireless debugging”: pair once and Mika connects automatically from then on — no computer needed. Web and file tasks work without this. Don’t change any other switch in Developer options unless Mika asks you to: some can erase your phone.</string>
     <string name="phone_later">Not now</string>

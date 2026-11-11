@@ -65,6 +65,7 @@ fun PhoneOpsScreen(
     onRepair: () -> Unit,
     onUnpair: () -> Unit,
     onBack: () -> Unit,
+    onStart: () -> Unit = {},
 ) {
     val check = Prerequisites.check(status, hasMainModel = true)
     var confirmUnpair by remember { mutableStateOf(false) }
@@ -87,6 +88,11 @@ fun PhoneOpsScreen(
                     else PhoneSetupCopy.statusLine(helper, status.usbDebugging, status.rootStart),
                     onClick = { onProblem(Problem.PhoneHelper(helper)) },
                 ) { if (reconnect) RowValue(PhoneSetupCopy.RECONNECT, ValueTone.Link) else RowValue(hText, hTone) }
+                if (helper != BuiltinShellStatus.Running && helper != BuiltinShellStatus.Connecting) {
+                    ListRow(MikaIcons.Up, stringResource(R.string.phone_start_helper), stringResource(R.string.phone_start_helper_sub), onClick = onStart) {
+                        RowChevron()
+                    }
+                }
             }
             val tooOld = status.sdkInt < Prerequisites.MIN_SDK
             val focusWarning = Problem.FocusMayLeak in check.problems

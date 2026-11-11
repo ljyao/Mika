@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">Parear sem fio</string>
+    <string name="phone_start_helper">Iniciar assistente do telefone</string>
+    <string name="phone_start_helper_sub">Se já estiver pareado, inicia diretamente. Na primeira vez, a acessibilidade pode ler o código.</string>
+    <string name="phone_pair_wireless">Iniciar sem fio</string>
     <string name="phone_title">Configurar o controle do celular</string>
     <string name="phone_intro">O Mika usa apps por você em uma tela virtual separada, e você pode continuar usando o celular. Para isso, ele aproveita a “Depuração USB” e a “Depuração wireless” do próprio Android: você faz o pareamento uma vez e, depois, o Mika se conecta sozinho — sem precisar de computador. Tarefas de web e de arquivos funcionam sem isso. Não mude nenhuma outra opção em Opções do desenvolvedor a menos que o Mika peça: algumas podem apagar o seu celular.</string>
     <string name="phone_later">Agora não</string>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">무선으로 페어링</string>
+    <string name="phone_start_helper">휴대전화 도우미 시작</string>
+    <string name="phone_start_helper_sub">페어링된 경우 바로 시작합니다. 처음에는 접근성 서비스가 코드를 읽을 수 있습니다.</string>
+    <string name="phone_pair_wireless">무선으로 시작</string>
     <string name="phone_title">휴대전화 제어 설정</string>
     <string name="phone_intro">Mika는 별도의 가상 화면에서 앱을 대신 사용해서, 그동안 휴대전화를 계속 쓸 수 있어요. 이를 위해 Android에 내장된 “USB 디버깅”과 “무선 디버깅”을 빌려 써요. 한 번 페어링하면 그다음부터는 Mika가 자동으로 연결해요. 컴퓨터는 필요 없어요. 웹과 파일 작업은 이 설정 없이도 돼요. Mika가 요청하지 않는 한 개발자 옵션의 다른 스위치는 바꾸지 마세요. 일부는 휴대전화를 초기화할 수 있어요.</string>
     <string name="phone_later">나중에</string>

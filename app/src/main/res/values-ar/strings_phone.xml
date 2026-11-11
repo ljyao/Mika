@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">الاقتران لاسلكياً</string>
+    <string name="phone_start_helper">بدء مساعد الهاتف</string>
+    <string name="phone_start_helper_sub">إذا كان مقترناً فسيبدأ مباشرة. عند الاقتران لأول مرة، يمكن لخدمة تسهيل الاستخدام قراءة الرمز.</string>
+    <string name="phone_pair_wireless">البدء لاسلكياً</string>
     <string name="phone_title">إعداد التحكم بالهاتف</string>
     <string name="phone_intro">يستخدم Mika التطبيقات نيابةً عنك على شاشة افتراضية منفصلة، لتتمكن من مواصلة استخدام هاتفك. لهذا الغرض، يستعين بخياري Android المدمجين «USB debugging» و«Wireless debugging»: أجرِ الاقتران مرة واحدة، وسيتصل Mika تلقائيًا بعد ذلك — دون الحاجة إلى كمبيوتر. تعمل مهام الويب والملفات دون ذلك. لا تغيّر أي مفتاح آخر في خيارات المطوّر ما لم يطلب منك Mika ذلك: فبعضها قد يمحو بيانات هاتفك.</string>
     <string name="phone_later">ليس الآن</string>

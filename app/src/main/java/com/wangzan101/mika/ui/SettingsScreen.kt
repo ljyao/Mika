@@ -207,6 +207,10 @@ fun SettingsScreen(
         SettingsPage.PhoneOps -> PhoneOpsScreen(
             status, androidRelease, onProblem,
             onRepair = { onFix(Fix.RepairPhoneHelper) }, onUnpair = { onFix(Fix.UnpairPhoneHelper) }, onBack = toHome,
+            onStart = {
+                if (status.rootStart || status.helperRestart == com.wangzan101.mika.core.shell.HelperRestart.Wireless) onFix(Fix.RetryPhoneHelper)
+                else onFix(Fix.RepairPhoneHelper)
+            },
         )
         SettingsPage.Notifications -> NotificationsScreen(status, onFix = ::fix, onBack = back)
         SettingsPage.DuringWork -> DuringWorkScreen(

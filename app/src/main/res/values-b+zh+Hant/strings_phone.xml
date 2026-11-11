@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="phone_pair_wireless">使用無線配對</string>
+    <string name="phone_start_helper">啟動手機助手</string>
+    <string name="phone_start_helper_sub">已配對時直接啟動；首次配對開啟無障礙後可自動讀取配對碼。</string>
+    <string name="phone_pair_wireless">無線啟動</string>
     <string name="phone_title">設定手機操作</string>
     <string name="phone_intro">Mika 在一塊單獨的虛擬螢幕上替你操作 App,你可以照常用手機。為此要借用 Android 內建的「USB 偵錯」和「無線偵錯」:配對一次就行,之後 Mika 會自動連線,不需要電腦。網頁和檔案類的事不受影響,不設定也能做。開發人員選項裡 Mika 沒提到的開關都不要動,有的會清除手機資料。</string>
     <string name="phone_later">稍後再說</string>

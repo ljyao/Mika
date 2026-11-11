@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">Shortcuts</string>
     <string name="chat_greeting_morning">Good morning</string>
     <string name="chat_greeting_noon">Good afternoon</string>
     <string name="chat_greeting_afternoon">Good afternoon</string>
@@ -212,4 +213,14 @@
     <string name="chat_placeholder_queue">Write the next task…</string>
     <string name="voice_placeholder_queue">Say the next task…</string>
     <string name="steer_received_paused">Got it — it will be used when the task continues</string>
+    <string name="shortcuts_unreadable">Could not read saved shortcuts. They cannot be edited for now.</string>
+    <string name="shortcuts_empty">No shortcuts yet</string>
+    <string name="shortcuts_empty_sub">Add a shortcut to show it above the message box.</string>
+    <string name="shortcuts_add">Add shortcut</string>
+    <string name="shortcuts_edit">Edit shortcut</string>
+    <string name="shortcuts_too_many">You can save up to %1$d shortcuts.</string>
+    <string name="shortcuts_footer">Tap a shortcut above the message box to run it immediately.</string>
+    <string name="shortcuts_delete_title">Delete this shortcut?</string>
+    <string name="shortcuts_delete_body">It will no longer appear above the message box.</string>
+    <string name="shortcuts_reset_body">The unreadable file will be replaced with an empty list.</string>
 </resources>

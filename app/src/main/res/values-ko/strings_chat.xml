@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">빠른 명령</string>
     <string name="chat_greeting_morning">좋은 아침이에요</string>
     <string name="chat_greeting_noon">점심 시간이에요</string>
     <string name="chat_greeting_afternoon">좋은 오후예요</string>
@@ -207,4 +208,14 @@
     <string name="chat_placeholder_queue">다음 작업을 입력…</string>
     <string name="voice_placeholder_queue">다음 작업을 말하세요…</string>
     <string name="steer_received_paused">알겠어요 — 작업을 계속하면 적용됩니다</string>
+    <string name="shortcuts_unreadable">저장된 빠른 명령을 읽을 수 없어 수정할 수 없습니다.</string>
+    <string name="shortcuts_empty">빠른 명령이 없습니다</string>
+    <string name="shortcuts_empty_sub">추가하면 입력란 위에 표시됩니다.</string>
+    <string name="shortcuts_add">빠른 명령 추가</string>
+    <string name="shortcuts_edit">빠른 명령 수정</string>
+    <string name="shortcuts_too_many">빠른 명령은 최대 %1$d개까지 저장할 수 있습니다.</string>
+    <string name="shortcuts_footer">입력란 위의 빠른 명령을 누르면 바로 실행됩니다.</string>
+    <string name="shortcuts_delete_title">이 빠른 명령을 삭제할까요?</string>
+    <string name="shortcuts_delete_body">삭제하면 입력란 위에 더 이상 표시되지 않습니다.</string>
+    <string name="shortcuts_reset_body">읽을 수 없는 파일을 빈 목록으로 바꿉니다.</string>
 </resources>

@@ -477,6 +477,7 @@ private fun MikaRoot(
                 conversationChanges = ConversationStore.shared(context).changes,
                 conversationTitle = { ConversationStore.shared(context).title(it) },
                 search = ConversationStore.shared(context).search,
+                onShortcuts = { nav.pushFromDrawer(Route.Shortcuts) },
                 onPlans = { nav.pushFromDrawer(Route.Plans) },
                 onMemory = { nav.pushFromDrawer(Route.Memory) },
                 onSettings = { nav.pushFromDrawer(Route.Settings) },
@@ -542,6 +543,7 @@ private fun MikaRoot(
                 }
             }
         }
+        Route.Shortcuts -> RecommendedTasksScreen(app.shortcuts, onBack = back, shortcuts = true)
         Route.Settings -> {
             val autonomous by app.approvals.autonomous.collectAsState()
             SettingsScreen(store, status, release, onFix, onBack = back, onOpenMemory = { nav.push(Route.Memory) },

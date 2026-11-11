@@ -51,6 +51,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -199,6 +200,12 @@ fun ChatScreen(
             ?: MutableStateFlow<List<RecommendedTask>>(emptyList())
     }
     val recommendedTasks by recommendedTasksFlow.collectAsState()
+    val shortcutStore = (LocalContext.current.applicationContext as? MikaApp)?.shortcuts
+    val shortcutsFlow = remember(shortcutStore) {
+        shortcutStore?.also { it.ensureLoaded { emptyList() } }?.tasks
+            ?: MutableStateFlow<List<RecommendedTask>>(emptyList())
+    }
+    val shortcuts by shortcutsFlow.collectAsState()
     val ui by vm.ui.collectAsState()
     val others by vm.otherRunning.collectAsState()
     val keptAny by vm.keptPage.collectAsState()
@@ -404,6 +411,8 @@ fun ChatScreen(
             hasHistory = ui.exchanges.isNotEmpty(),
             onSend = { vm.send(input, check) },
             onTeach = if (ui.composer == ComposerMode.Idle) ({ onOpenTeach(input.trim()) }) else null,
+            shortcuts = shortcuts,
+            onShortcut = { prompt -> vm.runShortcut(prompt, check) },
             onStop = vm::cancel,
             followUpMode = ui.followUpMode,
             queued = ui.queued,
@@ -1296,6 +1305,8 @@ internal fun Composer(
     attachPanel: (@Composable () -> Unit)? = null,
     /** 「＋」面板里的「教 Mika」。点了先收起面板。 */
     onTeach: (() -> Unit)? = null,
+    shortcuts: List<RecommendedTask> = emptyList(),
+    onShortcut: (String) -> Unit = {},
     attachments: List<PendingAttachment> = emptyList(),
     importing: Boolean = false,
     rejected: List<String> = emptyList(),
@@ -1398,6 +1409,24 @@ internal fun Composer(
             .padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 6.dp),
     ) {
         Column(Modifier.fillMaxWidth()) {
+            if (mode == ComposerMode.Idle && panel == Panel.Closed && shortcuts.isNotEmpty()) {
+                LazyRow(
+                    Modifier.fillMaxWidth().padding(bottom = 8.dp).testTag("shortcut-row"),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(shortcuts.size, key = { shortcuts[it].id }) { index ->
+                        val shortcut = shortcuts[index]
+                        Text(
+                            shortcut.title,
+                            Modifier.widthIn(max = 220.dp).clip(RoundedCornerShape(14.dp)).background(c.bg)
+                                .border(1.dp, c.ink3.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                                .clickable(role = Role.Button) { onShortcut(shortcut.prompt) }
+                                .padding(horizontal = 14.dp, vertical = 10.dp),
+                            style = MikaType.Body, color = c.ink, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                }
+            }
             if (busy || (mode == ComposerMode.Answer && attachments.isNotEmpty())) {
                 FollowUpModeBar(followUpMode, onFollowUpMode, followUpStatus)
             }

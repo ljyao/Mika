@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">快捷指令</string>
     <string name="chat_greeting_morning">早上好</string>
     <string name="chat_greeting_noon">中午好</string>
     <string name="chat_greeting_afternoon">下午好</string>
@@ -207,4 +208,14 @@
     <string name="chat_placeholder_queue">寫下下一件事…</string>
     <string name="voice_placeholder_queue">說下一件事…</string>
     <string name="steer_received_paused">已收到，任務繼續後處理</string>
+    <string name="shortcuts_unreadable">無法讀取已儲存的快捷指令，暫時無法修改。</string>
+    <string name="shortcuts_empty">還沒有快捷指令</string>
+    <string name="shortcuts_empty_sub">新增後會顯示在輸入框上方。</string>
+    <string name="shortcuts_add">新增快捷指令</string>
+    <string name="shortcuts_edit">編輯快捷指令</string>
+    <string name="shortcuts_too_many">最多儲存 %1$d 條快捷指令</string>
+    <string name="shortcuts_footer">點擊輸入框上方的快捷指令會立即執行。</string>
+    <string name="shortcuts_delete_title">刪除這條快捷指令？</string>
+    <string name="shortcuts_delete_body">刪除後，它不再顯示在輸入框上方。</string>
+    <string name="shortcuts_reset_body">無法讀取的檔案會被空白清單取代。</string>
 </resources>

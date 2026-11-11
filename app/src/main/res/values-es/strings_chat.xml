@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">Atajos</string>
     <string name="chat_greeting_morning">Buenos días</string>
     <string name="chat_greeting_noon">Buen mediodía</string>
     <string name="chat_greeting_afternoon">Buenas tardes</string>
@@ -217,4 +218,14 @@
     <string name="chat_placeholder_queue">Escribe la siguiente tarea…</string>
     <string name="voice_placeholder_queue">Di la siguiente tarea…</string>
     <string name="steer_received_paused">Entendido — se usará cuando continúe la tarea</string>
+    <string name="shortcuts_unreadable">No se pudieron leer los atajos guardados. Por ahora no se pueden editar.</string>
+    <string name="shortcuts_empty">Todavía no hay atajos</string>
+    <string name="shortcuts_empty_sub">Añade un atajo para mostrarlo sobre el cuadro de mensaje.</string>
+    <string name="shortcuts_add">Añadir atajo</string>
+    <string name="shortcuts_edit">Editar atajo</string>
+    <string name="shortcuts_too_many">Puedes guardar hasta %1$d atajos.</string>
+    <string name="shortcuts_footer">Toca un atajo sobre el cuadro de mensaje para ejecutarlo de inmediato.</string>
+    <string name="shortcuts_delete_title">¿Eliminar este atajo?</string>
+    <string name="shortcuts_delete_body">Ya no aparecerá sobre el cuadro de mensaje.</string>
+    <string name="shortcuts_reset_body">El archivo ilegible se sustituirá por una lista vacía.</string>
 </resources>

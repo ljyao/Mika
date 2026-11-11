@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">الأوامر المختصرة</string>
     <string name="chat_greeting_morning">صباح الخير</string>
     <string name="chat_greeting_noon">نهارك سعيد</string>
     <string name="chat_greeting_afternoon">مساء الخير</string>
@@ -232,4 +233,14 @@
     <string name="chat_placeholder_queue">اكتب المهمة التالية…</string>
     <string name="voice_placeholder_queue">تحدّث عن المهمة التالية…</string>
     <string name="steer_received_paused">تم الاستلام — سيُستخدم عند متابعة المهمة</string>
+    <string name="shortcuts_unreadable">تعذرت قراءة الأوامر المختصرة المحفوظة، ولا يمكن تعديلها الآن.</string>
+    <string name="shortcuts_empty">لا توجد أوامر مختصرة بعد</string>
+    <string name="shortcuts_empty_sub">أضف أمراً مختصراً ليظهر فوق مربع الرسالة.</string>
+    <string name="shortcuts_add">إضافة أمر مختصر</string>
+    <string name="shortcuts_edit">تعديل الأمر المختصر</string>
+    <string name="shortcuts_too_many">يمكنك حفظ %1$d من الأوامر المختصرة كحد أقصى.</string>
+    <string name="shortcuts_footer">اضغط على أمر مختصر فوق مربع الرسالة لتشغيله فوراً.</string>
+    <string name="shortcuts_delete_title">هل تريد حذف هذا الأمر المختصر؟</string>
+    <string name="shortcuts_delete_body">لن يظهر بعد الآن فوق مربع الرسالة.</string>
+    <string name="shortcuts_reset_body">سيُستبدل الملف غير القابل للقراءة بقائمة فارغة.</string>
 </resources>

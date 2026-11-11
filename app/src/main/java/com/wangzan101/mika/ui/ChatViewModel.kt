@@ -938,6 +938,21 @@ class ChatViewModel(
 
     fun clearQuote() = _ui.update { it.copy(quote = null) }
 
+    /** 直接运行快捷任务,保留输入框中未发送的文字、附件和引用。 */
+    fun runShortcut(text: String, check: Prerequisites.Check): Boolean {
+        if (teaching()) { onTeachingBlocked(); return false }
+        refreshParallel()
+        val ui = _ui.value
+        val goal = text.trim()
+        if (goal.isEmpty() || ui.importing || ui.composer != ComposerMode.Idle) return false
+        if (!check.canStartTask) {
+            _ui.update { it.copy(blocked = check.blockers) }
+            return false
+        }
+        begin(goal, ui.conversationId ?: store.newConversation(), clearDraftAttachments = false)
+        return true
+    }
+
     /** 发送输入框里的话;有引用时引用写在话的前面(见 [QuoteMessage]),发出去后清掉。返回 false 表示没发出去(条件不满足,或任务在跑)。 */
     fun send(text: String, check: Prerequisites.Check): Boolean {
         if (teaching()) {

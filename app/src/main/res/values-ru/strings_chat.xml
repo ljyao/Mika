@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">Быстрые команды</string>
     <string name="chat_greeting_morning">Доброе утро</string>
     <string name="chat_greeting_noon">Добрый день</string>
     <string name="chat_greeting_afternoon">Добрый день</string>
@@ -222,4 +223,14 @@
     <string name="chat_placeholder_queue">Напишите следующую задачу…</string>
     <string name="voice_placeholder_queue">Продиктуйте следующую задачу…</string>
     <string name="steer_received_paused">Принято — будет учтено после продолжения задачи</string>
+    <string name="shortcuts_unreadable">Не удалось прочитать сохранённые команды. Пока их нельзя изменить.</string>
+    <string name="shortcuts_empty">Быстрых команд пока нет</string>
+    <string name="shortcuts_empty_sub">Добавьте команду, чтобы она появилась над полем сообщения.</string>
+    <string name="shortcuts_add">Добавить команду</string>
+    <string name="shortcuts_edit">Изменить команду</string>
+    <string name="shortcuts_too_many">Можно сохранить не более %1$d команд.</string>
+    <string name="shortcuts_footer">Нажмите команду над полем сообщения, чтобы запустить её сразу.</string>
+    <string name="shortcuts_delete_title">Удалить эту команду?</string>
+    <string name="shortcuts_delete_body">Она больше не будет отображаться над полем сообщения.</string>
+    <string name="shortcuts_reset_body">Нечитаемый файл будет заменён пустым списком.</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">Perintah cepat</string>
     <string name="chat_greeting_morning">Selamat pagi</string>
     <string name="chat_greeting_noon">Selamat siang</string>
     <string name="chat_greeting_afternoon">Selamat sore</string>
@@ -207,4 +208,14 @@
     <string name="chat_placeholder_queue">Tulis tugas berikutnya…</string>
     <string name="voice_placeholder_queue">Ucapkan tugas berikutnya…</string>
     <string name="steer_received_paused">Dimengerti — akan dipakai saat tugas dilanjutkan</string>
+    <string name="shortcuts_unreadable">Perintah cepat yang tersimpan tidak dapat dibaca dan belum dapat diedit.</string>
+    <string name="shortcuts_empty">Belum ada perintah cepat</string>
+    <string name="shortcuts_empty_sub">Tambahkan perintah cepat agar muncul di atas kotak pesan.</string>
+    <string name="shortcuts_add">Tambah perintah cepat</string>
+    <string name="shortcuts_edit">Edit perintah cepat</string>
+    <string name="shortcuts_too_many">Anda dapat menyimpan hingga %1$d perintah cepat.</string>
+    <string name="shortcuts_footer">Ketuk perintah cepat di atas kotak pesan untuk langsung menjalankannya.</string>
+    <string name="shortcuts_delete_title">Hapus perintah cepat ini?</string>
+    <string name="shortcuts_delete_body">Perintah ini tidak lagi muncul di atas kotak pesan.</string>
+    <string name="shortcuts_reset_body">Berkas yang tidak dapat dibaca akan diganti dengan daftar kosong.</string>
 </resources>

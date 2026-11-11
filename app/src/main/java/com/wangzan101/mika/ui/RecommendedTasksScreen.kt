@@ -47,8 +47,8 @@ import kotlinx.coroutines.withContext
 
 /** 设置里的推荐任务:和首页是同一份列表,标题用来辨认,提示词留到点按后填进输入框。 */
 @Composable
-fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
-    remember(store) { store.ensureLoaded { ChatCopy.recommendationSeeds() } }
+fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit, shortcuts: Boolean = false) {
+    remember(store) { store.ensureLoaded { if (shortcuts) emptyList() else ChatCopy.recommendationSeeds() } }
     val tasks by store.tasks.collectAsState()
     val unreadable by store.unreadable.collectAsState()
     var editing by remember { mutableStateOf<RecommendedTask?>(null) }
@@ -60,9 +60,9 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
     val scope = rememberCoroutineScope()
 
     val c = MikaTheme.colors
-    PageScaffold(stringResource(R.string.recommendations_title), onBack) {
+    PageScaffold(stringResource(if (shortcuts) R.string.shortcuts_title else R.string.recommendations_title), onBack) {
         if (unreadable) {
-            FooterNote(stringResource(R.string.recommendations_unreadable), color = c.bad)
+            FooterNote(stringResource(if (shortcuts) R.string.shortcuts_unreadable else R.string.recommendations_unreadable), color = c.bad)
             if (resetError) FooterNote(stringResource(R.string.recommendations_save_failed), color = c.bad)
             MikaButton(
                 stringResource(R.string.recommendations_reset),
@@ -76,8 +76,8 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
                 if (tasks.isEmpty()) {
                     ListRow(
                         MikaIcons.Message,
-                        stringResource(R.string.recommendations_empty),
-                        stringResource(R.string.recommendations_empty_sub),
+                        stringResource(if (shortcuts) R.string.shortcuts_empty else R.string.recommendations_empty),
+                        stringResource(if (shortcuts) R.string.shortcuts_empty_sub else R.string.recommendations_empty_sub),
                         first = true,
                     )
                 } else {
@@ -98,13 +98,13 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
                     }
                 }
                 if (tasks.size < RecommendedTaskStore.MAX_TASKS) {
-                    ListRow(MikaIcons.Plus, stringResource(R.string.recommendations_add), first = false, onClick = { adding = true })
+                    ListRow(MikaIcons.Plus, stringResource(if (shortcuts) R.string.shortcuts_add else R.string.recommendations_add), first = false, onClick = { adding = true })
                 }
             }
             if (tasks.size >= RecommendedTaskStore.MAX_TASKS) {
-                FooterNote(stringResource(R.string.recommendations_too_many, RecommendedTaskStore.MAX_TASKS))
+                FooterNote(stringResource(if (shortcuts) R.string.shortcuts_too_many else R.string.recommendations_too_many, RecommendedTaskStore.MAX_TASKS))
             }
-            FooterNote(stringResource(R.string.recommendations_footer))
+            FooterNote(stringResource(if (shortcuts) R.string.shortcuts_footer else R.string.recommendations_footer))
         }
     }
 
@@ -112,17 +112,18 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
         RecommendedTaskDialog(
             store = store,
             initial = editing,
+            shortcuts = shortcuts,
             onDismiss = { adding = false; editing = null },
         )
     }
     deleting?.let { task ->
         MikaDialog(
             onDismissRequest = { deleting = null },
-            title = { Text(stringResource(R.string.recommendations_delete_title)) },
+            title = { Text(stringResource(if (shortcuts) R.string.shortcuts_delete_title else R.string.recommendations_delete_title)) },
             text = {
                 Column {
-                    Text(stringResource(R.string.recommendations_delete_body))
-                    deleteError?.let { Text(recommendationError(it), Modifier.padding(top = 8.dp), color = c.bad) }
+                    Text(stringResource(if (shortcuts) R.string.shortcuts_delete_body else R.string.recommendations_delete_body))
+                    deleteError?.let { Text(recommendationError(it, shortcuts), Modifier.padding(top = 8.dp), color = c.bad) }
                 }
             },
             confirmButton = {
@@ -140,7 +141,7 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
         MikaDialog(
             onDismissRequest = { resetting = false },
             title = { Text(stringResource(R.string.recommendations_reset)) },
-            text = { Text(stringResource(R.string.recommendations_reset_body)) },
+            text = { Text(stringResource(if (shortcuts) R.string.shortcuts_reset_body else R.string.recommendations_reset_body)) },
             confirmButton = {
                 TextButton({
                     resetting = false
@@ -156,7 +157,7 @@ fun RecommendedTasksScreen(store: RecommendedTaskStore, onBack: () -> Unit) {
 }
 
 @Composable
-private fun RecommendedTaskDialog(store: RecommendedTaskStore, initial: RecommendedTask?, onDismiss: () -> Unit) {
+private fun RecommendedTaskDialog(store: RecommendedTaskStore, initial: RecommendedTask?, shortcuts: Boolean, onDismiss: () -> Unit) {
     var title by remember { mutableStateOf(initial?.title.orEmpty()) }
     var prompt by remember { mutableStateOf(initial?.prompt.orEmpty()) }
     var error by remember { mutableStateOf<RecommendedTaskError?>(null) }
@@ -179,7 +180,7 @@ private fun RecommendedTaskDialog(store: RecommendedTaskStore, initial: Recommen
 
     MikaDialog(
         onDismissRequest = { if (!saving) onDismiss() },
-        title = { Text(stringResource(if (initial == null) R.string.recommendations_add else R.string.recommendations_edit)) },
+        title = { Text(stringResource(if (shortcuts) { if (initial == null) R.string.shortcuts_add else R.string.shortcuts_edit } else { if (initial == null) R.string.recommendations_add else R.string.recommendations_edit })) },
         text = {
             Column {
                 OutlinedTextField(
@@ -198,7 +199,7 @@ private fun RecommendedTaskDialog(store: RecommendedTaskStore, initial: Recommen
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 )
                 error?.let {
-                    Text(recommendationError(it), Modifier.padding(top = 8.dp), color = MikaTheme.colors.bad)
+                    Text(recommendationError(it, shortcuts), Modifier.padding(top = 8.dp), color = MikaTheme.colors.bad)
                 }
             }
         },
@@ -225,13 +226,13 @@ private fun DeleteTaskButton(onClick: () -> Unit) {
 }
 
 @Composable
-private fun recommendationError(error: RecommendedTaskError): String = when (error) {
+private fun recommendationError(error: RecommendedTaskError, shortcuts: Boolean): String = when (error) {
     RecommendedTaskError.BlankTitle -> stringResource(R.string.recommendations_title_required)
     RecommendedTaskError.BlankPrompt -> stringResource(R.string.recommendations_prompt_required)
     RecommendedTaskError.TooLong -> stringResource(R.string.recommendations_too_long)
-    RecommendedTaskError.TooMany -> stringResource(R.string.recommendations_too_many, RecommendedTaskStore.MAX_TASKS)
+    RecommendedTaskError.TooMany -> stringResource(if (shortcuts) R.string.shortcuts_too_many else R.string.recommendations_too_many, RecommendedTaskStore.MAX_TASKS)
     RecommendedTaskError.SaveFailed -> stringResource(R.string.recommendations_save_failed)
-    RecommendedTaskError.Unreadable -> stringResource(R.string.recommendations_unreadable)
+    RecommendedTaskError.Unreadable -> stringResource(if (shortcuts) R.string.shortcuts_unreadable else R.string.recommendations_unreadable)
 }
 
 /** 设置列表里只露一行,避免一条长提示词把整页撑开。 */

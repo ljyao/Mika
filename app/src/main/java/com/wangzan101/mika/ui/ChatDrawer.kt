@@ -239,6 +239,7 @@ fun ChatDrawer(
     /** 有对话可搜时才显示搜索框。 */
     canSearch: Boolean = false,
     onNew: () -> Unit,
+    onShortcuts: () -> Unit = {},
     onPlans: () -> Unit,
     onMemory: () -> Unit,
     onBrowser: () -> Unit,
@@ -281,6 +282,7 @@ fun ChatDrawer(
         val searchActive = canSearch && query.isNotBlank()
         if (!searchActive) Column(Modifier.padding(horizontal = 12.dp, vertical = 6.dp)) {
             NavEntry(MikaIcons.New, stringResource(R.string.chat_new), enabled = canSwitch, onClick = onNew)
+            NavEntry(MikaIcons.Apps, stringResource(R.string.shortcuts_title), onClick = onShortcuts)
             NavEntry(MikaIcons.Clock, stringResource(R.string.drawer_plans), onClick = onPlans)
             NavEntry(MikaIcons.Heart, stringResource(R.string.memory_and_skills), onClick = onMemory)
             NavEntry(MikaIcons.Globe, stringResource(R.string.drawer_browser), onClick = onBrowser)
@@ -561,6 +563,7 @@ fun ChatWithDrawer(
     conversationTitle: (String) -> String? = { null },
     /** 侧栏搜索用的索引;没有时侧栏不显示搜索框。 */
     search: ConversationSearch? = null,
+    onShortcuts: () -> Unit = {},
     onPlans: () -> Unit,
     onMemory: () -> Unit,
     onBrowser: () -> Unit,
@@ -733,6 +736,7 @@ fun ChatWithDrawer(
                     search = searchView,
                     canSearch = candidates.isNotEmpty(),
                     onNew = { close { vm.newConversation() } },
+                    onShortcuts = { leave(onShortcuts) },
                     onPlans = { leave(onPlans) },
                     onMemory = { leave(onMemory) },
                     onSettings = { leave(onSettings) },

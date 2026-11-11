@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">فرمان‌های میانبر</string>
     <string name="chat_greeting_morning">صبح بخیر</string>
     <string name="chat_greeting_noon">بعدازظهر بخیر</string>
     <string name="chat_greeting_afternoon">بعدازظهر بخیر</string>
@@ -212,4 +213,14 @@
     <string name="chat_retry_missing">%1$s: فایل موجود نیست</string>
     <string name="chat_retry_limit">%1$s: به سقف کپی رسید</string>
     <string name="chat_retry_failed">%1$s: کپی ممکن نشد</string>
+    <string name="shortcuts_unreadable">خواندن فرمان‌های میانبر ذخیره‌شده ممکن نیست و فعلاً نمی‌توان آن‌ها را ویرایش کرد.</string>
+    <string name="shortcuts_empty">هنوز فرمان میانبری وجود ندارد</string>
+    <string name="shortcuts_empty_sub">یک فرمان میانبر اضافه کنید تا بالای کادر پیام نمایش داده شود.</string>
+    <string name="shortcuts_add">افزودن فرمان میانبر</string>
+    <string name="shortcuts_edit">ویرایش فرمان میانبر</string>
+    <string name="shortcuts_too_many">می‌توانید حداکثر %1$d فرمان میانبر ذخیره کنید.</string>
+    <string name="shortcuts_footer">برای اجرای فوری، روی فرمان میانبر بالای کادر پیام بزنید.</string>
+    <string name="shortcuts_delete_title">این فرمان میانبر حذف شود؟</string>
+    <string name="shortcuts_delete_body">دیگر بالای کادر پیام نمایش داده نمی‌شود.</string>
+    <string name="shortcuts_reset_body">فایل ناخوانا با یک فهرست خالی جایگزین می‌شود.</string>
 </resources>

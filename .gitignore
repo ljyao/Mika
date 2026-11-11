@@ -21,3 +21,7 @@ CLAUDE.md
 __pycache__/
 *.py[cod]
 *.egg-info/
+
+# Local release signing material (keystore + passwords)
+/signing/*
+!/signing/keystore.properties.example

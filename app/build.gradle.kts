@@ -1,3 +1,6 @@
+import java.io.File
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -10,9 +13,35 @@ val gitHash: String = runCatching {
     providers.exec { commandLine("git", "rev-parse", "--short=7", "HEAD") }.standardOutput.asText.get().trim()
 }.getOrNull()?.takeIf { it.isNotEmpty() } ?: "dev"
 
+// 签名材料默认从本机 signing/keystore.properties 读取,也可用 mika.signing.* Gradle 属性覆盖。
+// signing/ 下真实文件和口令不进仓库,因此没有本机签名配置时仍可构建未签名的 release。
+val signingProperties = Properties().apply {
+    val propertiesFile = rootProject.file("signing/keystore.properties")
+    if (propertiesFile.isFile) propertiesFile.inputStream().use(::load)
+}
+val signingValue = { key: String ->
+    providers.gradleProperty("mika.signing.$key").orNull ?: signingProperties.getProperty(key)
+}
+val signingStoreFile = signingValue("storeFile")?.let { value ->
+    val configuredFile = File(value)
+    if (configuredFile.isAbsolute) configuredFile else rootProject.file("signing/$value")
+}
+val hasReleaseSigning = listOf("storeFile", "storePassword", "keyAlias", "keyPassword")
+    .all { !signingValue(it).isNullOrBlank() } && signingStoreFile?.isFile == true
+
 android {
     namespace = "com.wangzan101.mika"
     compileSdk = 36
+
+    signingConfigs {
+        if (hasReleaseSigning) create("release") {
+            storeFile = signingStoreFile
+            storePassword = signingValue("storePassword")
+            keyAlias = signingValue("keyAlias")
+            keyPassword = signingValue("keyPassword")
+            // minSdk 30,APK 只签 v3(Android 11 起校验的方式)即可。
+        }
+    }
 
     defaultConfig {
         applicationId = "com.wangzan101.mika"
@@ -54,16 +83,22 @@ android {
     sourceSets.getByName("androidTest").assets.srcDir(rootProject.file("eval/tasks"))
 
     buildTypes {
+        // debug 也用发布签名,便于直接在已安装的发行版上覆盖验收。
+        getByName("debug") {
+            if (hasReleaseSigning) signingConfig = signingConfigs.getByName("release")
+        }
         // 真机验收时并排安装,保留发行版和用户数据;默认构建标识不变。
         if (providers.gradleProperty("devInstall").isPresent) getByName("debug") {
             applicationIdSuffix = ".dev"
             resValue("string", "app_name", "Mika Dev")
         }
+        getByName("release") {
+            if (signingConfigs.findByName("release") != null) signingConfig = signingConfigs.getByName("release")
+        }
         // 看流畅度用的包:和发布版一样不可调试(调试包不做预先编译,界面慢好几倍,手感不作数),
-        // 用本机调试签名,能直接覆盖调试包、保留数据;可被性能工具采样。./gradlew :app:assemblePerf
+        // 与 debug/release 共用发布签名,可直接覆盖安装并保留数据;可被性能工具采样。./gradlew :app:assemblePerf
         create("perf") {
             initWith(getByName("release"))
-            signingConfig = signingConfigs.getByName("debug")
             isProfileable = true
             matchingFallbacks += "release"
         }

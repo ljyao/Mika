@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">Mulai asisten ponsel</string>
-    <string name="phone_start_helper_sub">Jika sudah dipasangkan, asisten langsung dimulai. Saat pertama kali, aksesibilitas dapat membaca kode.</string>
+    <string name="phone_start_helper_sub">Inisialisasi sekali melalui USB, lalu mulai tanpa membuka pengaturan sistem.</string>
     <string name="phone_pair_wireless">Mulai secara nirkabel</string>
     <string name="phone_title">Siapkan kontrol ponsel</string>
     <string name="phone_intro">Mika memakai aplikasi untuk Anda di layar virtual terpisah, jadi Anda tetap bisa memakai ponsel. Untuk itu Mika meminjam fitur bawaan Android “Proses debug USB” dan “Proses debug nirkabel”: pasangkan sekali, lalu Mika tersambung otomatis seterusnya — tanpa komputer. Tugas web dan berkas berjalan tanpa ini. Jangan ubah sakelar lain di Opsi developer kecuali diminta Mika: beberapa bisa menghapus isi ponsel Anda.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">Mika menemukan su di ponsel ini. Pembantu yang dimulai dengan root tetap berjalan sebagai pengguna terbatas yang sama, dengan izin yang sama seperti melalui debug nirkabel.</string>
     <string name="phone_root_entry_on">Pembantu mulai otomatis; perintah root aktif</string>
     <string name="phone_root_entry_off">Pembantu mulai otomatis; perintah root nonaktif</string>
+    <string name="phone_wireless_init_working">Menginisialisasi mulai nirkabel melalui asisten USB…</string>
+    <string name="phone_wireless_init_ready">Mulai nirkabel telah diinisialisasi dan diverifikasi. Setelah memulai ulang ponsel, hubungkan ke Wi-Fi ini lalu ketuk Mulai.</string>
+    <string name="phone_wireless_init_usb">Hubungkan ke komputer dan jalankan perintah USB satu kali untuk inisialisasi.</string>
+    <string name="phone_wireless_init_wifi">Hubungkan ke Wi-Fi lalu ketuk Mulai untuk mencoba inisialisasi lagi.</string>
+    <string name="phone_wireless_init_disabled">Aktifkan debugging nirkabel otomatis di pengaturan pemulihan sebelum inisialisasi.</string>
+    <string name="phone_wireless_init_failed">Inisialisasi gagal. Biarkan asisten USB berjalan dan coba lagi. Sistem mungkin membatasi antarmuka yang diperlukan.</string>
 </resources>

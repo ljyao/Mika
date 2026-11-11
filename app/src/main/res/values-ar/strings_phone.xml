@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">بدء مساعد الهاتف</string>
-    <string name="phone_start_helper_sub">إذا كان مقترناً فسيبدأ مباشرة. عند الاقتران لأول مرة، يمكن لخدمة تسهيل الاستخدام قراءة الرمز.</string>
+    <string name="phone_start_helper_sub">هيّئ مرة واحدة عبر USB، ثم ابدأ دون فتح إعدادات النظام.</string>
     <string name="phone_pair_wireless">البدء لاسلكياً</string>
     <string name="phone_title">إعداد التحكم بالهاتف</string>
     <string name="phone_intro">يستخدم Mika التطبيقات نيابةً عنك على شاشة افتراضية منفصلة، لتتمكن من مواصلة استخدام هاتفك. لهذا الغرض، يستعين بخياري Android المدمجين «USB debugging» و«Wireless debugging»: أجرِ الاقتران مرة واحدة، وسيتصل Mika تلقائيًا بعد ذلك — دون الحاجة إلى كمبيوتر. تعمل مهام الويب والملفات دون ذلك. لا تغيّر أي مفتاح آخر في خيارات المطوّر ما لم يطلب منك Mika ذلك: فبعضها قد يمحو بيانات هاتفك.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">وجد Mika ملف su على هذا الهاتف. يظل المساعد الذي يبدأ باستخدام root يعمل بالمستخدم المحدود نفسه وبالأذونات نفسها كما عند بدئه عبر تصحيح الأخطاء اللاسلكي.</string>
     <string name="phone_root_entry_on">بدء المساعد تلقائيًا؛ أوامر root مفعّلة</string>
     <string name="phone_root_entry_off">بدء المساعد تلقائيًا؛ أوامر root متوقفة</string>
+    <string name="phone_wireless_init_working">جارٍ تهيئة البدء اللاسلكي عبر مساعد USB…</string>
+    <string name="phone_wireless_init_ready">تمت تهيئة البدء اللاسلكي والتحقق منه. بعد إعادة التشغيل، اتصل بشبكة Wi-Fi هذه واضغط على بدء.</string>
+    <string name="phone_wireless_init_usb">اتصل بالكمبيوتر وشغّل أمر USB مرة واحدة لتهيئة البدء اللاسلكي.</string>
+    <string name="phone_wireless_init_wifi">اتصل بشبكة Wi-Fi ثم اضغط على بدء لإعادة محاولة التهيئة.</string>
+    <string name="phone_wireless_init_disabled">فعّل تصحيح الأخطاء اللاسلكي التلقائي في إعدادات الاسترداد قبل التهيئة.</string>
+    <string name="phone_wireless_init_failed">فشلت التهيئة. أبقِ مساعد USB قيد التشغيل وحاول مجدداً. قد يقيّد النظام الواجهة المطلوبة.</string>
 </resources>

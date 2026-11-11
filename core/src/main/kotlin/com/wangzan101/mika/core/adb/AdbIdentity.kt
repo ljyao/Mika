@@ -40,6 +40,16 @@ class AdbIdentity(val keyPair: KeyPair, val name: String) {
         Base64.getEncoder().encodeToString(AdbPublicKey.encode(publicKey)) + " " + name.replace(Regex("\\s"), "_")
     }
 
+    /** ADB AUTH 的 20 字节 challenge 已是摘要,不能再做一次 SHA-1。参照 Shizuku AdbKey 的 PKCS#1 签名。 */
+    fun signAdbToken(token: ByteArray): ByteArray {
+        require(token.size == 20) { "invalid ADB token length" }
+        val digestInfo = byteArrayOf(0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02, 0x1a, 0x05, 0x00, 0x04, 0x14)
+        return Cipher.getInstance("RSA/ECB/PKCS1Padding").run {
+            init(Cipher.ENCRYPT_MODE, keyPair.private)
+            doFinal(digestInfo + token)
+        }
+    }
+
     companion object {
         /** 新钥匙的公开指数:F4(65537)。读回钥匙时拿不到指数就按它补,并验证补得对。 */
         val PUBLIC_EXPONENT: BigInteger = RSAKeyGenParameterSpec.F4

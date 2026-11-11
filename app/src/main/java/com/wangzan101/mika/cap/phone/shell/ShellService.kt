@@ -1449,6 +1449,10 @@ class ShellService(
 
     override fun runCommand(command: String): Bundle = exec(command, null)
 
+    private val wirelessBootstrap by lazy { ShellWirelessBootstrap() }
+    override fun beginWirelessBootstrap(serviceName: String, password: String): Boolean = wirelessBootstrap.begin(serviceName, password)
+    override fun endWirelessBootstrap(serviceName: String) = wirelessBootstrap.end(serviceName)
+
     /** 助手进程看 Mika 交来的心愿(见 [setRestoreWish]);Mika 死后据此决定要不要把它拉起来。 */
     @Volatile var onRestoreWish: ((Int) -> Unit)? = null
 

@@ -17,10 +17,15 @@ import java.net.NetworkInterface
 class NsdAdbServiceFinder(context: Context) : AdbServiceFinder {
     private val nsd = context.applicationContext.getSystemService(NsdManager::class.java)
 
-    override suspend fun findPorts(serviceType: String, timeoutMs: Long): List<Int> {
+    override suspend fun findPorts(serviceType: String, timeoutMs: Long): List<Int> = findPorts(serviceType, timeoutMs, null)
+
+    /** USB 初始化只接受自己刚启动的临时服务,不使用其他配对窗口的端口。 */
+    suspend fun findPorts(serviceType: String, timeoutMs: Long, serviceName: String?): List<Int> {
         val services = Channel<NsdServiceInfo>(Channel.UNLIMITED)
         val listener = object : NsdManager.DiscoveryListener {
-            override fun onServiceFound(info: NsdServiceInfo) { services.trySend(info) }
+            override fun onServiceFound(info: NsdServiceInfo) {
+                if (serviceName == null || info.serviceName == serviceName) services.trySend(info)
+            }
             override fun onServiceLost(info: NsdServiceInfo) {}
             override fun onDiscoveryStarted(serviceType: String) {}
             override fun onDiscoveryStopped(serviceType: String) {}

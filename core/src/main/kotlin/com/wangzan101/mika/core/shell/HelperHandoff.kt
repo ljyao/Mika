@@ -103,7 +103,7 @@ object HelperHandoff {
             |if pidof $name >/dev/null 2>&1; then
             |  echo "Mika helper starting... Open Mika to confirm phone control is ready."
             |  echo "On most phones it keeps running after you unplug the cable; if phone control stopped after unplugging, plug in and run this command again."
-            |  echo "To recover without a computer, use wireless pairing in Mika on a phone that supports wireless debugging. Follow the system pairing prompts."
+            |  echo "With Wi-Fi connected, Mika will try to initialize wireless startup through this USB helper. Check Phone control in Mika for the verified result."
             |else
             |  echo "Mika helper did not start. Open Mika once, then run this command again."
             |  exit 1
@@ -135,7 +135,7 @@ object HelperHandoff {
             |# Written by Mika. The phone helper is connected, so this file holds no start code.
             |if pidof $name >/dev/null 2>&1; then
             |  echo "Mika helper is already running. Nothing to do."
-            |  echo "To recover without a computer, use wireless pairing in Mika on a phone that supports wireless debugging. Follow the system pairing prompts."
+            |  echo "For wireless initialization, connect Wi-Fi and tap Start phone helper in Mika. Check the initialization result before unplugging."
             |else
             |  echo "Mika helper is not running. Open Mika once, then run this command again: ${usbCommand(scriptPath)}"
             |  exit 1

@@ -9,6 +9,14 @@ import org.junit.Assert.fail
 import org.junit.Test
 
 class AdbConnectPortTest {
+    @Test fun tcpPropertyFallbackWorksWithoutMdnsOrPairingPage() = runTest {
+        val cache = Cache()
+        val chain = AdbConnectPort(property = { null }, finder = { _, _ -> error("mDNS should not be needed") },
+            cache = cache, additionalPorts = { listOf(5555, 5555, -1) })
+        assertEquals("conn@5555", chain.connect(opener(5555)))
+        assertEquals(listOf(5555), attempts)
+        assertEquals(5555, cache.port)
+    }
     private class Cache(var port: Int? = null) : PortCache {
         override fun load() = port
         override fun save(port: Int) { this.port = port }

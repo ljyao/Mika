@@ -49,6 +49,8 @@ class AdbConnectPort(
     private val scanning: (Boolean) -> Unit = {},
     private val localHost: String = LOCALHOST,
     private val tlsRetryDelayMs: Long = 300,
+    /** 与 Shizuku 相同,兼容系统公布的传统 TCP ADB 端口。 */
+    private val additionalPorts: () -> List<Int> = { emptyList() },
 ) {
     /** 用 [open] 依次试候选,返回第一个连上的结果;一个都连不上时抛有端口拒了我们的 UNAUTHORIZED,否则抛最后一个错。 */
     suspend fun <T> connect(open: (host: String, port: Int) -> T): T {
@@ -61,7 +63,7 @@ class AdbConnectPort(
         fun local(vararg ports: Int?) = ports.filterNotNull().map { AdbEndpoint(localHost, it) }
         val sources: List<suspend () -> List<AdbEndpoint>> = listOf(
             { local(cache.load()) },
-            { local(property()) },
+            { local(property(), *additionalPorts().toTypedArray()) },
             { finder.findPorts(AdbServiceTypes.CONNECT, mdnsTimeoutMs).map { AdbEndpoint(localHost, it) } },
             {
                 if (scan == null || manualPort != null || rejected != null) emptyList() else {

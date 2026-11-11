@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">スマートフォン助手を起動</string>
-    <string name="phone_start_helper_sub">ペア設定済みの場合は直接起動します。初回はユーザー補助機能でコードを読み取れます。</string>
+    <string name="phone_start_helper_sub">USB で一度初期化すれば、システム設定を開かずに起動できます。</string>
     <string name="phone_pair_wireless">ワイヤレスで起動</string>
     <string name="phone_title">スマホの操作を設定</string>
     <string name="phone_intro">Mika は、別の仮想画面であなたの代わりにアプリを操作するので、その間もスマホを使い続けられます。そのために、Android 標準の「USB デバッグ」と「ワイヤレス デバッグ」を借ります。一度ペア設定すれば、以降は Mika が自動で接続します。パソコンは不要です。ウェブやファイルのタスクは、これがなくても使えます。「開発者向けオプション」のほかのスイッチは、Mika に頼まれない限り変更しないでください。スマホのデータが消えるものもあります。</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">このスマホで su が見つかりました。root で起動したヘルパーも同じ制限付きユーザーで動作し、権限はワイヤレス デバッグで起動した場合と同じです。</string>
     <string name="phone_root_entry_on">ヘルパーを自動起動;root コマンドはオン</string>
     <string name="phone_root_entry_off">ヘルパーを自動起動;root コマンドはオフ</string>
+    <string name="phone_wireless_init_working">USB 助手でワイヤレス起動を初期化しています…</string>
+    <string name="phone_wireless_init_ready">ワイヤレス起動を初期化し、接続を確認しました。再起動後はこの Wi-Fi に接続して起動してください。</string>
+    <string name="phone_wireless_init_usb">パソコンに接続し、USB 起動コマンドを一度実行して初期化してください。</string>
+    <string name="phone_wireless_init_wifi">Wi-Fi に接続してから起動をタップして初期化を再試行してください。</string>
+    <string name="phone_wireless_init_disabled">復旧設定でワイヤレスデバッグの自動有効化をオンにしてください。</string>
+    <string name="phone_wireless_init_failed">初期化できませんでした。USB 助手を起動したまま再試行してください。システムが必要な機能を制限している可能性があります。</string>
 </resources>

@@ -28,7 +28,7 @@ class FakeAdbd(
     private val mode: Mode = Mode.TLS,
     private val maxData: Int = 4096,
 ) : AutoCloseable {
-    enum class Mode { TLS, PLAIN, LEGACY_AUTH }
+    enum class Mode { TLS, PLAIN, LEGACY_AUTH, LEGACY_RSA, LEGACY_NEW_KEY, BAD_AUTH }
 
     private val server = ServerSocket(0, 4, InetAddress.getByAddress(byteArrayOf(127, 0, 0, 1)))
     val port: Int get() = server.localPort
@@ -66,6 +66,26 @@ class FakeAdbd(
         check(cnxn.command == AdbMessage.CNXN && cnxn.arg0 == AdbMessage.VERSION && cnxn.data.toString(Charsets.US_ASCII) == "host::\u0000")
         when (mode) {
             Mode.LEGACY_AUTH -> { out.write(AdbMessage(AdbMessage.AUTH, 1, 0, ByteArray(20)).encode()); out.flush(); input.read(); return }
+            Mode.BAD_AUTH -> { out.write(AdbMessage(AdbMessage.AUTH, 1, 0, ByteArray(19)).encode()); out.flush(); input.read(); return }
+            Mode.LEGACY_RSA, Mode.LEGACY_NEW_KEY -> {
+                val token = ByteArray(20) { it.toByte() }
+                out.write(AdbMessage(AdbMessage.AUTH, 1, 0, token).encode()); out.flush()
+                val signed = readMsg(input) ?: return
+                check(signed.command == AdbMessage.AUTH && signed.arg0 == 2)
+                val header = byteArrayOf(0x30, 0x21, 0x30, 0x09, 0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02, 0x1a, 0x05, 0x00, 0x04, 0x14)
+                check(authorized.any { key ->
+                    runCatching { javax.crypto.Cipher.getInstance("RSA/ECB/PKCS1Padding").run {
+                        init(javax.crypto.Cipher.DECRYPT_MODE, key.keyPair.public)
+                        doFinal(signed.data).contentEquals(header + token)
+                    } }.getOrDefault(false)
+                })
+                if (mode == Mode.LEGACY_NEW_KEY) {
+                    out.write(AdbMessage(AdbMessage.AUTH, 1, 0, token).encode()); out.flush()
+                    val pub = readMsg(input) ?: return
+                    check(pub.command == AdbMessage.AUTH && pub.arg0 == 3)
+                    check(authorized.any { pub.data.contentEquals((it.adbPublicKey + "\u0000").toByteArray()) })
+                }
+            }
             Mode.PLAIN -> Unit
             Mode.TLS -> {
                 out.write(AdbMessage(AdbMessage.STLS, AdbMessage.STLS_VERSION, 0).encode()); out.flush()
@@ -225,6 +245,27 @@ class AdbConnectionTest {
         FakeAdbd(listOf(TestTls.client), FakeAdbd.Mode.LEGACY_AUTH).use { d ->
             val e = assertThrows(AdbConnectionException::class.java) { AdbConnection.open("127.0.0.1", d.port, tls) }
             assertEquals(AdbConnectionException.Reason.UNAUTHORIZED, e.reason)
+        }
+    }
+
+    @Test
+    fun legacyRsaAndSystemApprovedPublicKeyCanRunCommands() {
+        for (mode in listOf(FakeAdbd.Mode.LEGACY_RSA, FakeAdbd.Mode.LEGACY_NEW_KEY)) {
+            FakeAdbd(listOf(TestTls.client), mode).use { d ->
+                AdbConnection.open("127.0.0.1", d.port, tls).use { c ->
+                    assertEquals("legacy\n", c.exec("echo legacy").readText())
+                }
+                d.awaitSessionEnd()
+                assertNull(d.error)
+            }
+        }
+    }
+
+    @Test
+    fun malformedLegacyChallengeIsRejected() {
+        FakeAdbd(listOf(TestTls.client), FakeAdbd.Mode.BAD_AUTH).use { d ->
+            val e = assertThrows(AdbConnectionException::class.java) { AdbConnection.open("127.0.0.1", d.port, tls) }
+            assertEquals(AdbConnectionException.Reason.PROTOCOL, e.reason)
         }
     }
 

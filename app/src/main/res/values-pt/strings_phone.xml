@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">Iniciar assistente do telefone</string>
-    <string name="phone_start_helper_sub">Se já estiver pareado, inicia diretamente. Na primeira vez, a acessibilidade pode ler o código.</string>
+    <string name="phone_start_helper_sub">Inicialize uma vez por USB e depois inicie sem abrir as configurações do sistema.</string>
     <string name="phone_pair_wireless">Iniciar sem fio</string>
     <string name="phone_title">Configurar o controle do celular</string>
     <string name="phone_intro">O Mika usa apps por você em uma tela virtual separada, e você pode continuar usando o celular. Para isso, ele aproveita a “Depuração USB” e a “Depuração wireless” do próprio Android: você faz o pareamento uma vez e, depois, o Mika se conecta sozinho — sem precisar de computador. Tarefas de web e de arquivos funcionam sem isso. Não mude nenhuma outra opção em Opções do desenvolvedor a menos que o Mika peça: algumas podem apagar o seu celular.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">O Mika encontrou o su neste celular. Um assistente iniciado com root ainda é executado como o mesmo usuário limitado, com as mesmas permissões de um iniciado por depuração wireless.</string>
     <string name="phone_root_entry_on">Início automático do assistente; comandos root ativados</string>
     <string name="phone_root_entry_off">Início automático do assistente; comandos root desativados</string>
+    <string name="phone_wireless_init_working">Inicializando o início sem fio pelo assistente USB…</string>
+    <string name="phone_wireless_init_ready">Início sem fio inicializado e verificado. Após reiniciar, conecte-se a esta Wi-Fi e toque em Iniciar.</string>
+    <string name="phone_wireless_init_usb">Conecte ao computador e execute o comando USB uma vez para inicializar.</string>
+    <string name="phone_wireless_init_wifi">Conecte-se ao Wi-Fi e toque em Iniciar para tentar a inicialização novamente.</string>
+    <string name="phone_wireless_init_disabled">Ative a depuração sem fio automática nas configurações de recuperação antes de inicializar.</string>
+    <string name="phone_wireless_init_failed">A inicialização falhou. Mantenha o assistente USB em execução e tente novamente. O sistema pode restringir a interface necessária.</string>
 </resources>

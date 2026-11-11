@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">启动手机助手</string>
-    <string name="phone_start_helper_sub">已配对时直接启动；首次配对开启无障碍后可自动读取配对码。</string>
+    <string name="phone_start_helper_sub">首次通过 USB 初始化，之后点击启动，无需跳转系统设置。</string>
     <string name="phone_pair_wireless">无线启动</string>
     <string name="phone_title">设置手机操作</string>
     <string name="phone_intro">Mika 在一块单独的虚拟屏上替你操作 App,你可以照常用手机。为此要借用安卓自带的「USB 调试」和「无线调试」:配对一次就行,之后 Mika 会自动连接,不需要电脑。网页和文件类的事不受影响,不设置也能做。开发者选项里 Mika 没提到的开关都不要动,有的会清除手机数据。</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">检测到这台手机上有 su。用 root 启动的手机助手仍以同样的受限身份运行,权限和经无线调试启动时一样。</string>
     <string name="phone_root_entry_on">自动启动助手;root 命令已开启</string>
     <string name="phone_root_entry_off">自动启动助手;root 命令已关闭</string>
+    <string name="phone_wireless_init_working">正在通过 USB 助手初始化无线启动…</string>
+    <string name="phone_wireless_init_ready">无线启动已初始化并验证。手机重启后，连接此 Wi-Fi 并点击启动。</string>
+    <string name="phone_wireless_init_usb">请先连接电脑并运行一次 USB 启动命令，完成无线启动初始化。</string>
+    <string name="phone_wireless_init_wifi">请先连接 Wi-Fi，再点击启动重试初始化。</string>
+    <string name="phone_wireless_init_disabled">请在恢复与修复中打开「自动打开无线调试」，再初始化。</string>
+    <string name="phone_wireless_init_failed">无线初始化未完成。请保持 USB 助手运行后重试；系统可能限制了所需接口。</string>
 </resources>

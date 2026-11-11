@@ -33,6 +33,8 @@ import com.wangzan101.mika.core.shell.WirelessDebuggingAutoOn
 import com.wangzan101.mika.core.shell.ShellCommandRunner
 import com.wangzan101.mika.core.shell.SuAnswer
 import com.wangzan101.mika.core.shell.SuProbe
+import com.wangzan101.mika.core.shell.WirelessBootstrap
+import com.wangzan101.mika.core.shell.WirelessBootstrapState
 import com.wangzan101.mika.cap.phone.shell.HelperHub
 import com.wangzan101.mika.cap.phone.shell.adb.AndroidAdb
 import com.wangzan101.mika.cap.phone.shell.adb.NsdAdbServiceFinder
@@ -43,6 +45,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
@@ -118,6 +124,93 @@ class BuiltinShellManager(context: Context, private val hub: HelperHub, private 
     /** 「用电脑启动」的脚本:跟着助手在不在重写。 */
     val usbScript = UsbStartScript(app, hub)
 
+    private val bootstrapLock = Mutex()
+    private val startLock = Mutex()
+    private val _wirelessBootstrapState = MutableStateFlow(WirelessBootstrapState.Idle)
+    val wirelessBootstrapState: StateFlow<WirelessBootstrapState> = _wirelessBootstrapState.asStateFlow()
+
+    /** App 内的启动按钮:已初始化就直接连接,不打开系统设置页面。 */
+    suspend fun startWireless() = startLock.withLock {
+        if (engine.paired || engine.rootStart) {
+            if (engine.paired && !engine.rootStart) {
+                // 用户明确点了启动;沿用 Shizuku 的启动策略,在已授权时打开 ADB 总开关。
+                runCatching { Settings.Global.putInt(app.contentResolver, Settings.Global.ADB_ENABLED, 1) }
+            }
+            engine.retry()
+        } else {
+            if (hub.shell.value != null) initializeWireless()
+            else {
+                _wirelessBootstrapState.value = WirelessBootstrapState.Preparing
+                val connected = withContext(Dispatchers.IO) {
+                    try {
+                        if (consent().wants(RecoveryCapability.AutoWirelessDebugging) &&
+                            app.checkSelfPermission(PermissionCommands.WRITE_SECURE_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
+                            Settings.Global.putInt(app.contentResolver, Settings.Global.ADB_ENABLED, 1)
+                            DeveloperSettings.turnOnWirelessDebugging(app.contentResolver)
+                        }
+                        platform.connect().use { }
+                        platform.setPaired(true)
+                        true
+                    } catch (e: kotlinx.coroutines.CancellationException) { throw e }
+                    catch (_: Exception) { false }
+                }
+                _wirelessBootstrapState.value = if (connected) WirelessBootstrapState.Ready else WirelessBootstrapState.NeedUsb
+                if (connected) engine.retry()
+            }
+        }
+    }
+
+    /** 用户用 USB 启动助手后,通过系统原生服务完成一次配对,以后不再需要页面或配对码。 */
+    private suspend fun initializeWireless() = bootstrapLock.withLock {
+        if (engine.paired) { _wirelessBootstrapState.value = WirelessBootstrapState.Ready; return@withLock }
+        val shell = hub.shell.value ?: run { _wirelessBootstrapState.value = WirelessBootstrapState.NeedUsb; return@withLock }
+        if (!platform.wifiConnected()) { _wirelessBootstrapState.value = WirelessBootstrapState.NoWifi; return@withLock }
+        if (!consent().wants(RecoveryCapability.AutoWirelessDebugging)) {
+            _wirelessBootstrapState.value = WirelessBootstrapState.Disabled
+            return@withLock
+        }
+        _wirelessBootstrapState.value = WirelessBootstrapState.Preparing
+        try {
+            val ready = withContext(Dispatchers.IO) {
+                val grant = shell.runCommand(PermissionCommands.grantWriteSecureSettings(app.packageName))
+                if (grant?.getInt("exitCode", -1) != 0) return@withContext false
+                WirelessBootstrap(object : WirelessBootstrap.Port {
+                    override suspend fun start(name: String, password: String): Boolean {
+                        lastHelperLaunchStage = "wireless_bootstrap_service"
+                        return shell.beginWirelessBootstrap(name, password)
+                    }
+                    override suspend fun find(name: String): Int? {
+                        lastHelperLaunchStage = "wireless_bootstrap_discovery"
+                        return NsdAdbServiceFinder(app).findPorts(AdbServiceTypes.PAIRING, 15_000, name).firstOrNull()
+                    }
+                    override suspend fun pair(port: Int, password: String) {
+                        lastHelperLaunchStage = "wireless_bootstrap_pairing"
+                        AdbPairing(AndroidAdb.tls(AndroidAdb.pairingIdentity(app))).pair(LOCALHOST, port, password)
+                    }
+                    override suspend fun verify() {
+                        lastHelperLaunchStage = "wireless_bootstrap_verifying"
+                        // 系统持久化配对记录与开启连接端口是异步的,给它一次等待后的重试。
+                        try { platform.connect().use { } }
+                        catch (e: java.io.IOException) { delay(750); platform.connect().use { } }
+                    }
+                    override fun savePaired() {
+                        platform.setPaired(true)
+                        lastHelperLaunchStage = "wireless_bootstrap_ready"
+                    }
+                    override suspend fun stop(name: String) = shell.endWirelessBootstrap(name)
+                }).initialize()
+            }
+            _wirelessBootstrapState.value = if (ready) WirelessBootstrapState.Ready else WirelessBootstrapState.Failed
+            if (ready) engine.retry()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            _wirelessBootstrapState.value = WirelessBootstrapState.Failed
+            throw e
+        } catch (_: Exception) {
+            // 不记录异常原文,避免 ROM 的反射异常携带配对口令。
+            _wirelessBootstrapState.value = WirelessBootstrapState.Failed
+        }
+    }
+
     /** 有人要用助手却没有:看门狗起一个(配对过才行),脚本也备好给电脑用。 */
     fun need() {
         engine.need()
@@ -150,11 +243,19 @@ class BuiltinShellManager(context: Context, private val hub: HelperHub, private 
                 NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                     .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build(),
                 object : ConnectivityManager.NetworkCallback() {
-                    override fun onAvailable(network: Network) = e.wifiAvailable()
+                    override fun onAvailable(network: Network) {
+                        e.wifiAvailable()
+                        if (hub.shell.value != null && !e.paired && !e.rootStart) scope.launch { initializeWireless() }
+                    }
                 },
             )
         }
         e.start()
+        scope.launch {
+            hub.shell.collect { shell ->
+                if (shell != null && !e.paired && !e.rootStart) initializeWireless()
+            }
+        }
     }
 
     private class AndroidPlatform(
@@ -178,7 +279,7 @@ class BuiltinShellManager(context: Context, private val hub: HelperHub, private 
         override fun paired() = Build.VERSION.SDK_INT >= MIN_SDK && prefs.getBoolean("paired", false)
 
         override fun setPaired(paired: Boolean) {
-            prefs.edit().putBoolean("paired", paired).apply()
+            check(prefs.edit().putBoolean("paired", paired).commit()) { "cannot save pairing state" }
         }
 
         override fun rootStart() = root.rootStart()
@@ -272,6 +373,7 @@ class BuiltinShellManager(context: Context, private val hub: HelperHub, private 
         suspend fun connect(tls: AdbTls = AndroidAdb.tls(AndroidAdb.identity(app))): AdbConnection =
             AdbConnectPort(
                 ::tlsPort, finder, portCache, report = candidates, scan = scan, manual = { manualPort.getAndSet(null) }, scanning = scanning,
+                additionalPorts = ::tcpPorts,
             ).connect { host, port -> AdbConnection.open(host, port, tls) }
 
         /** 扫端口时只扫本机自己:127.0.0.1 和 Wi-Fi 上的 IPv4 地址。 */
@@ -303,6 +405,14 @@ class BuiltinShellManager(context: Context, private val hub: HelperHub, private 
             Class.forName("android.os.SystemProperties").getMethod("get", String::class.java)
                 .invoke(null, TLS_PORT_PROPERTY) as String?
         }.getOrNull()?.trim()?.toIntOrNull()
+
+        /** 与 Shizuku EnvironmentUtils 相同的传统 TCP 端口来源;连接地址仍限本机。 */
+        private fun tcpPorts(): List<Int> = listOf("service.adb.tcp.port", "persist.adb.tcp.port").mapNotNull { key ->
+            runCatching {
+                Class.forName("android.os.SystemProperties").getMethod("getInt", String::class.java, Int::class.javaPrimitiveType)
+                    .invoke(null, key, -1) as Int
+            }.getOrNull()?.takeIf { it in 1..65535 }
+        }.distinct()
     }
 
     companion object {

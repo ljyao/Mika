@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">Iniciar asistente del teléfono</string>
-    <string name="phone_start_helper_sub">Si ya está vinculado, se inicia directamente. La accesibilidad puede leer el código la primera vez.</string>
+    <string name="phone_start_helper_sub">Inicializa una vez por USB y luego inicia sin abrir los ajustes del sistema.</string>
     <string name="phone_pair_wireless">Iniciar de forma inalámbrica</string>
     <string name="phone_title">Configurar el control del teléfono</string>
     <string name="phone_intro">Mika usa las apps por ti en una pantalla virtual aparte, así que puedes seguir usando tu teléfono. Para ello aprovecha la “Depuración por USB” y la “Depuración inalámbrica” que trae Android: vinculas una vez y, desde entonces, Mika se conecta sola, sin ordenador. Las tareas web y de archivos funcionan sin esto. No cambies ningún otro interruptor de las Opciones de desarrollador a menos que Mika te lo pida: algunos pueden borrar tu teléfono.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">Mika encontró su en este teléfono. Un asistente iniciado con root sigue ejecutándose con el mismo usuario limitado y permisos que uno iniciado por depuración inalámbrica.</string>
     <string name="phone_root_entry_on">Inicio automático del asistente; comandos root activados</string>
     <string name="phone_root_entry_off">Inicio automático del asistente; comandos root desactivados</string>
+    <string name="phone_wireless_init_working">Inicializando el inicio inalámbrico mediante el asistente USB…</string>
+    <string name="phone_wireless_init_ready">Inicio inalámbrico inicializado y verificado. Tras reiniciar, conéctate a esta Wi-Fi y toca Iniciar.</string>
+    <string name="phone_wireless_init_usb">Conecta el teléfono al ordenador y ejecuta una vez el comando USB para inicializar.</string>
+    <string name="phone_wireless_init_wifi">Conéctate a Wi-Fi y toca Iniciar para volver a intentar la inicialización.</string>
+    <string name="phone_wireless_init_disabled">Activa la depuración inalámbrica automática en Recuperación antes de inicializar.</string>
+    <string name="phone_wireless_init_failed">La inicialización falló. Mantén el asistente USB en ejecución y reintenta. El sistema puede restringir la interfaz necesaria.</string>
 </resources>

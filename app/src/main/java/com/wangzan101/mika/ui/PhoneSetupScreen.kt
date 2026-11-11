@@ -108,6 +108,7 @@ fun PhoneSetupScreen(status: SystemStatus, repair: Boolean, onFix: (Fix) -> Unit
     val context = LocalContext.current
     val phone = remember { PhoneServices.of(context) }
     val pairing = phone.pairing
+    val wirelessInit by phone.shellManager.wirelessBootstrapState.collectAsState()
     val discovery by phone.shellControl.pairingDiscovery.collectAsState()
     val scanning by phone.shellManager.scanningPorts.collectAsState()
     val shell = status.builtinShell
@@ -229,15 +230,9 @@ fun PhoneSetupScreen(status: SystemStatus, repair: Boolean, onFix: (Fix) -> Unit
         onAskUsb = { usbAsked = true },
         onCopyUsbCommand = copyUsbCommand,
         onWirelessPairing = {
-            revisit = null
-            confirmed = confirmed - SetupStep.WirelessDebugging
-            accessibilitySkipped = false
-            pairing.startRepair()
-            if (status.accessibility == com.wangzan101.mika.settings.AccessibilityState.On) {
-                pairing.begin()
-                onFix(Fix.OpenWirelessDebugging)
-            }
+            phone.pairing.scope.launch { phone.shellManager.startWireless() }
         },
+        wirelessInit = wirelessInit,
     )
     // 卡在哪一步都能把诊断信息发给作者:用的是引导页此刻的输入,用户确认过的步骤也在里面
     if (diagnosticsOpen) {
@@ -280,6 +275,7 @@ fun PhoneSetupContent(
     onAskUsb: () -> Unit = {},
     onCopyUsbCommand: () -> Unit = {},
     onWirelessPairing: () -> Unit = {},
+    wirelessInit: com.wangzan101.mika.core.shell.WirelessBootstrapState = com.wangzan101.mika.core.shell.WirelessBootstrapState.Idle,
 ) {
     val canRevisit = view.phase == SetupPhase.Guide || view.phase == SetupPhase.Failed
     fun revisitable(step: SetupStep) = canRevisit && step != view.current && step in PhoneSetupFlow.REVISITABLE &&
@@ -301,6 +297,15 @@ fun PhoneSetupContent(
                         }
                     }
                 } else {
+                    when (wirelessInit) {
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.Preparing -> FooterNote(stringResource(R.string.phone_wireless_init_working))
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.Ready -> FooterNote(stringResource(R.string.phone_wireless_init_ready))
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.NeedUsb -> FooterNote(stringResource(R.string.phone_wireless_init_usb))
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.NoWifi -> FooterNote(stringResource(R.string.phone_wireless_init_wifi))
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.Disabled -> FooterNote(stringResource(R.string.phone_wireless_init_disabled))
+                        com.wangzan101.mika.core.shell.WirelessBootstrapState.Failed -> FooterNote(stringResource(R.string.phone_wireless_init_failed))
+                        else -> Unit
+                    }
                     if (view.phase == SetupPhase.Success) {
                         Text(
                             PhoneSetupCopy.SUCCESS_LINE, Modifier.padding(top = 4.dp, bottom = 16.dp).testTag("setup-success"),

@@ -1,5 +1,14 @@
 # Third-party notices
 
+## Shizuku
+
+- Project: https://github.com/RikkaApps/Shizuku
+- License: Apache-2.0 (the full text is in the repository LICENSE and the app Apache-2.0 license page).
+- Source revision: `b844bc491f1790c72328e1a8e5b2349f8978f0ea`
+- Attribution: Shizuku contributors.
+- Usage: adapted the legacy RSA ADB authentication flow from `manager/src/main/java/moe/shizuku/manager/adb/AdbClient.kt` and the startup/port discovery approach from `AdbDialogFragment.kt` and `EnvironmentUtils.kt`.
+- Changes: retained Mika's local-device address restriction and key storage, added challenge validation, and omitted key logging and global authorization-expiry changes.
+
 ## scrcpy
 
 - Project: https://github.com/Genymobile/scrcpy

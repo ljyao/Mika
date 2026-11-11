@@ -66,6 +66,7 @@ fun PhoneOpsScreen(
     onUnpair: () -> Unit,
     onBack: () -> Unit,
     onStart: () -> Unit = {},
+    wirelessInit: com.wangzan101.mika.core.shell.WirelessBootstrapState = com.wangzan101.mika.core.shell.WirelessBootstrapState.Idle,
 ) {
     val check = Prerequisites.check(status, hasMainModel = true)
     var confirmUnpair by remember { mutableStateOf(false) }
@@ -88,7 +89,7 @@ fun PhoneOpsScreen(
                     else PhoneSetupCopy.statusLine(helper, status.usbDebugging, status.rootStart),
                     onClick = { onProblem(Problem.PhoneHelper(helper)) },
                 ) { if (reconnect) RowValue(PhoneSetupCopy.RECONNECT, ValueTone.Link) else RowValue(hText, hTone) }
-                if (helper != BuiltinShellStatus.Running && helper != BuiltinShellStatus.Connecting) {
+                if ((helper != BuiltinShellStatus.Running && helper != BuiltinShellStatus.Connecting) || status.helperRestart == com.wangzan101.mika.core.shell.HelperRestart.UsbCommand) {
                     ListRow(MikaIcons.Up, stringResource(R.string.phone_start_helper), stringResource(R.string.phone_start_helper_sub), onClick = onStart) {
                         RowChevron()
                     }
@@ -111,6 +112,18 @@ fun PhoneOpsScreen(
                     else -> RowValue(stringResource(R.string.settings_meets), ValueTone.Ok)
                 }
             }
+        }
+        if (status.sdkInt >= Prerequisites.MIN_SDK) {
+            val message = when (wirelessInit) {
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.Idle -> null
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.Preparing -> R.string.phone_wireless_init_working
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.Ready -> R.string.phone_wireless_init_ready
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.NeedUsb -> R.string.phone_wireless_init_usb
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.NoWifi -> R.string.phone_wireless_init_wifi
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.Disabled -> R.string.phone_wireless_init_disabled
+                com.wangzan101.mika.core.shell.WirelessBootstrapState.Failed -> R.string.phone_wireless_init_failed
+            }
+            message?.let { FooterNote(stringResource(it)) }
         }
         if (status.sdkInt >= Prerequisites.MIN_SDK) {
             GroupLabel(stringResource(R.string.phone_channel))

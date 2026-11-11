@@ -123,6 +123,11 @@ interface IMikaShell {
     // 对 SystemUI 做一次定向点击,用于生物识别优先锁屏页上「用密码解锁」这类回退按钮;不含凭据。
     boolean revealDeviceCredentialTap(int x, int y) = 51;
 
+    // USB 初始化:通过系统 ADB 服务为 Mika 开启一次临时配对会话,不依赖设置页面。
+    // 授权当前连接的 Wi-Fi,serviceName/password 只通过 Binder 传递,不写日志或命令行。
+    boolean beginWirelessBootstrap(String serviceName, String password) = 52;
+    void endWirelessBootstrap(String serviceName) = 53;
+
     // 沿用早先定下的销毁事务号;AIDL 要求要么全部方法编号要么都不编号
     void destroy() = 16777114;
 }

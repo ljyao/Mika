@@ -105,6 +105,8 @@ fun SettingsScreen(
 
     // 并行任务的上限只在实验开关 parallelTasks 打开时出现;设备能力按此刻算,第二块屏建失败过就按失败算
     val context = LocalContext.current
+    val phone = remember { com.wangzan101.mika.cap.phone.PhoneServices.of(context) }
+    val wirelessInit by phone.shellManager.wirelessBootstrapState.collectAsState()
     val recommendedTasks = remember { (context.applicationContext as com.wangzan101.mika.MikaApp).recommendedTasks }
     val root = remember { com.wangzan101.mika.cap.phone.PhoneServices.of(context).shellManager.root }
     val rootState by root.state.collectAsState()
@@ -208,9 +210,9 @@ fun SettingsScreen(
             status, androidRelease, onProblem,
             onRepair = { onFix(Fix.RepairPhoneHelper) }, onUnpair = { onFix(Fix.UnpairPhoneHelper) }, onBack = toHome,
             onStart = {
-                if (status.rootStart || status.helperRestart == com.wangzan101.mika.core.shell.HelperRestart.Wireless) onFix(Fix.RetryPhoneHelper)
-                else onFix(Fix.RepairPhoneHelper)
+                phone.pairing.scope.launch { phone.shellManager.startWireless() }
             },
+            wirelessInit = wirelessInit,
         )
         SettingsPage.Notifications -> NotificationsScreen(status, onFix = ::fix, onBack = back)
         SettingsPage.DuringWork -> DuringWorkScreen(

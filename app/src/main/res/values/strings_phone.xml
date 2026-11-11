@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">Start phone helper</string>
-    <string name="phone_start_helper_sub">If already paired, start directly. For first-time pairing, accessibility can read the code.</string>
+    <string name="phone_start_helper_sub">Initialize once over USB, then tap to start without opening system settings.</string>
     <string name="phone_pair_wireless">Start wirelessly</string>
     <string name="phone_title">Set up phone control</string>
     <string name="phone_intro">Mika uses apps for you on a separate virtual screen, so you can keep using your phone. For this it borrows Android’s built-in “USB debugging” and “Wireless debugging”: pair once and Mika connects automatically from then on — no computer needed. Web and file tasks work without this. Don’t change any other switch in Developer options unless Mika asks you to: some can erase your phone.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">Mika found su on this phone. A helper started with root still runs as the same limited user, with the same permissions as one started over Wireless debugging.</string>
     <string name="phone_root_entry_on">Automatic helper start; root commands on</string>
     <string name="phone_root_entry_off">Automatic helper start; root commands off</string>
+    <string name="phone_wireless_init_working">Initializing wireless startup through the USB helper…</string>
+    <string name="phone_wireless_init_ready">Wireless startup initialized and verified. After restarting the phone, connect to this Wi-Fi and tap Start.</string>
+    <string name="phone_wireless_init_usb">Connect to a computer and run the USB start command once to initialize wireless startup.</string>
+    <string name="phone_wireless_init_wifi">Connect to Wi-Fi, then tap Start to retry initialization.</string>
+    <string name="phone_wireless_init_disabled">Enable automatic wireless debugging in Recovery before initializing.</string>
+    <string name="phone_wireless_init_failed">Wireless initialization failed. Keep the USB helper running and retry. This ROM may restrict the required interface.</string>
 </resources>

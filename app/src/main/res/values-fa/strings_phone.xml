@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="phone_start_helper">شروع دستیار تلفن</string>
-    <string name="phone_start_helper_sub">اگر قبلاً جفت شده باشد مستقیماً شروع می‌شود. هنگام نخستین جفت‌سازی، دسترس‌پذیری می‌تواند کد را بخواند.</string>
+    <string name="phone_start_helper_sub">یک بار با USB آماده‌سازی کنید، سپس بدون باز کردن تنظیمات سیستم شروع کنید.</string>
     <string name="phone_pair_wireless">شروع بی‌سیم</string>
     <string name="phone_title">راه‌اندازی کنترل گوشی</string>
     <string name="phone_intro">میکا برنامه‌ها را در صفحه‌ای مجازی و جداگانه برای شما استفاده می‌کند تا بتوانید به کار با گوشی ادامه دهید. برای این کار از «اشکال‌زدایی USB» و «اشکال‌زدایی بی‌سیم» اندروید استفاده می‌کند: یک بار جفت‌سازی کنید تا پس از آن میکا به‌طور خودکار متصل شود؛ به رایانه نیاز نیست. کارهای وب و فایل بدون این قابلیت هم انجام می‌شوند. هیچ گزینهٔ دیگری را در تنظیمات توسعه‌دهنده تغییر ندهید، مگر اینکه میکا از شما بخواهد: بعضی گزینه‌ها ممکن است داده‌های گوشی را پاک کنند.</string>
@@ -175,4 +175,10 @@
     <string name="phone_root_note">میکا su را در این گوشی پیدا کرد. برنامهٔ کمکی که با روت شروع می‌شود همچنان با همان کاربر محدودشده و مجوزهای نسخهٔ شروع‌شده از طریق اشکال‌زدایی بی‌سیم اجرا می‌شود.</string>
     <string name="phone_root_entry_on">شروع خودکار برنامهٔ کمکی؛ دستورهای روت روشن</string>
     <string name="phone_root_entry_off">شروع خودکار برنامهٔ کمکی؛ دستورهای روت خاموش</string>
+    <string name="phone_wireless_init_working">در حال آماده‌سازی شروع بی‌سیم با دستیار USB…</string>
+    <string name="phone_wireless_init_ready">شروع بی‌سیم آماده و اتصال بررسی شد. پس از راه‌اندازی دوباره، به همین Wi-Fi وصل شوید و شروع را بزنید.</string>
+    <string name="phone_wireless_init_usb">به رایانه وصل شوید و فرمان USB را یک بار برای آماده‌سازی اجرا کنید.</string>
+    <string name="phone_wireless_init_wifi">به Wi-Fi وصل شوید و برای تلاش دوباره شروع را بزنید.</string>
+    <string name="phone_wireless_init_disabled">پیش از آماده‌سازی، اشکال‌زدایی بی‌سیم خودکار را در تنظیمات بازیابی روشن کنید.</string>
+    <string name="phone_wireless_init_failed">آماده‌سازی ناموفق بود. دستیار USB را روشن نگه دارید و دوباره تلاش کنید. ممکن است سیستم رابط موردنیاز را محدود کرده باشد.</string>
 </resources>

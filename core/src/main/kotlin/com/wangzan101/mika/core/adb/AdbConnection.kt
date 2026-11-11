@@ -251,9 +251,38 @@ class AdbConnection private constructor(
                     if (cnxn.command != AdbMessage.CNXN) throw AdbConnectionException(AdbConnectionException.Reason.PROTOCOL, "expected CNXN, got $cnxn")
                     finish(ssl, input, ssl.outputStream, cnxn, timeoutMs)
                 }
-                AdbMessage.AUTH -> throw AdbConnectionException(AdbConnectionException.Reason.UNAUTHORIZED, "device asks for legacy RSA auth (not a wireless-debugging port?)")
+                AdbMessage.AUTH -> legacyHandshake(plain, out, first, tls.identity, timeoutMs)
                 else -> throw AdbConnectionException(AdbConnectionException.Reason.PROTOCOL, "unexpected $first")
             }
+        }
+
+        /**
+         * Adapted from Shizuku AdbClient (Apache-2.0, Shizuku contributors).
+         * https://github.com/RikkaApps/Shizuku/blob/b844bc491f1790c72328e1a8e5b2349f8978f0ea/manager/src/main/java/moe/shizuku/manager/adb/AdbClient.kt
+         * Changes: validate challenge type/length and only accept CNXN after authentication.
+         */
+        private fun legacyHandshake(socket: Socket, out: OutputStream, token: AdbMessage, identity: AdbIdentity, timeoutMs: Int): AdbConnection {
+            val input = DataInputStream(socket.getInputStream())
+            fun checkToken(message: AdbMessage) {
+                if (message.command != AdbMessage.AUTH || message.arg0 != 1 || message.data.size != 20) {
+                    throw AdbConnectionException(AdbConnectionException.Reason.PROTOCOL, "invalid ADB AUTH challenge")
+                }
+            }
+            fun response(): AdbMessage = AdbMessage.read(input)
+                ?: throw AdbConnectionException(AdbConnectionException.Reason.UNAUTHORIZED, "ADB authentication was not accepted")
+            checkToken(token)
+            out.write(AdbMessage(AdbMessage.AUTH, 2, 0, identity.signAdbToken(token.data)).encode())
+            out.flush()
+            var message = response()
+            if (message.command == AdbMessage.AUTH) {
+                checkToken(message)
+                // 由系统显示 RSA 授权确认;不模拟确认,也不记录密钥材料。
+                out.write(AdbMessage(AdbMessage.AUTH, 3, 0, (identity.adbPublicKey + "\u0000").toByteArray(Charsets.UTF_8)).encode())
+                out.flush()
+                message = response()
+            }
+            if (message.command != AdbMessage.CNXN) throw AdbConnectionException(AdbConnectionException.Reason.UNAUTHORIZED, "ADB key not authorized")
+            return finish(socket, input, out, message, timeoutMs)
         }
 
         private fun finish(socket: Socket, input: DataInputStream, out: OutputStream, cnxn: AdbMessage, timeoutMs: Int): AdbConnection {

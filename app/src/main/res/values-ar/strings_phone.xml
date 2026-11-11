@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="phone_pair_wireless">الاقتران لاسلكياً</string>
     <string name="phone_title">إعداد التحكم بالهاتف</string>
     <string name="phone_intro">يستخدم Mika التطبيقات نيابةً عنك على شاشة افتراضية منفصلة، لتتمكن من مواصلة استخدام هاتفك. لهذا الغرض، يستعين بخياري Android المدمجين «USB debugging» و«Wireless debugging»: أجرِ الاقتران مرة واحدة، وسيتصل Mika تلقائيًا بعد ذلك — دون الحاجة إلى كمبيوتر. تعمل مهام الويب والملفات دون ذلك. لا تغيّر أي مفتاح آخر في خيارات المطوّر ما لم يطلب منك Mika ذلك: فبعضها قد يمحو بيانات هاتفك.</string>
     <string name="phone_later">ليس الآن</string>
@@ -128,16 +129,16 @@
     <string name="phone_connect_port_hint">في صفحة «Wireless debugging»، الرقم الذي يلي النقطتين في «IP address &amp; port»، مثل 41235</string>
     <string name="phone_connect_port_submit">اتصال</string>
     <string name="fail_usb_stopped">توقفت أداة مساعدة الهاتف</string>
-    <string name="fail_usb_stopped_body">شُغّلت باستخدام أمر بدء USB، لذا لن تعمل تلقائيًا مجددًا (مثلًا بعد إعادة تشغيل الهاتف). نفّذ الأمر أدناه مجددًا لاستعادة التحكم بالهاتف.</string>
+    <string name="fail_usb_stopped_body">توقف المساعد الذي بدأ عبر USB. استخدم الاقتران اللاسلكي إن كان مدعوماً أو شغّل الأمر أدناه مجدداً.</string>
     <string name="phone_usb_ask">ألا تستطيع العثور على Wireless debugging؟</string>
     <string name="phone_usb_title">ألا يمكنك استخدام Wireless debugging على هذا الهاتف؟ ابدأ من كمبيوتر بدلًا من ذلك</string>
-    <string name="phone_usb_body">صِل الهاتف بكمبيوتر باستخدام كابل USB ونفّذ هذا الأمر على الكمبيوتر (ويعمل أيضًا أي أسلوب آخر لتنفيذ أمر adb هذا للهاتف). أعد تنفيذه بعد إعادة تشغيل الهاتف.</string>
+    <string name="phone_usb_body">صِل الهاتف بالكمبيوتر وشغّل هذا الأمر. بعد إعادة التشغيل يمكنك أيضاً استخدام الاقتران اللاسلكي إن كان مدعوماً.</string>
     <string name="phone_usb_copy">نسخ</string>
     <string name="phone_usb_copied">تم نسخ الأمر</string>
     <string name="phone_usb_again_title">أعد تنفيذ أمر البدء</string>
-    <string name="phone_usb_again_body">صِل الهاتف بكمبيوتر باستخدام كابل USB ونفّذ هذا الأمر على الكمبيوتر (ويعمل أيضًا أي أسلوب آخر لتنفيذ أمر adb هذا للهاتف). على معظم الهواتف تستمر أداة المساعدة بعد فصل الكابل؛ إذا توقفت، فأعد توصيل الكابل ونفّذ الأمر مجددًا لاستعادة التحكم بالهاتف. يلزم تنفيذه مجددًا أيضًا بعد كل إعادة تشغيل للهاتف.</string>
-    <string name="phone_success_note_usb">أبقِ USB debugging مفعّلًا. شُغّلت أداة المساعدة باستخدام أمر USB. على معظم الهواتف تستمر بعد فصل الكابل؛ إذا توقفت، فأعد توصيل الكابل ونفّذ الأمر مجددًا. بعد إعادة تشغيل الهاتف، افتح Mika مرة واحدة ثم نفّذ الأمر مجددًا.</string>
-    <string name="phone_usage_note_usb">شُغّلت أداة المساعدة المدمجة في Mika باستخدام أمر بدء USB. على معظم الهواتف تستمر بعد فصل الكابل؛ لكن بعض الأنظمة يوقفها عند فصله. إذا حدث ذلك، فأعد توصيل الكابل ونفّذ الأمر مجددًا لاستعادة التحكم بالهاتف. أبقِ «USB debugging» (في Developer options) مفعّلًا؛ إذ يؤدي إيقافه إلى تعطيل التحكم بالهاتف. بعد إعادة تشغيل الهاتف، لن تعمل الأداة تلقائيًا: افتح Mika ونفّذ الأمر مجددًا (يمكنك نسخه في «Set up phone control»). إذا كان خيار «Wireless debugging» يعمل على هذا الهاتف، فسيتيح الاقتران مرة واحدة لـ Mika إعادة الاتصال تلقائيًا بعد إعادة التشغيل.</string>
+    <string name="phone_usb_again_body">صِل الهاتف بالكمبيوتر وشغّل هذا الأمر، أو استخدم الاقتران اللاسلكي أعلاه إن كان مدعوماً.</string>
+    <string name="phone_success_note_usb">أبقِ تصحيح USB مفعلاً. إذا توقف المساعد، استخدم الاقتران اللاسلكي في Mika أو شغّل أمر USB مجدداً.</string>
+    <string name="phone_usage_note_usb">بدأ المساعد عبر USB. أبقِ تصحيح USB مفعلاً. إذا توقف، فاستخدم الاقتران اللاسلكي على الهواتف المدعومة أو شغّل أمر USB مجدداً.</string>
     <string name="fail_root_denied">رُفض إذن root</string>
     <string name="fail_root_denied_body">تعذر على Mika بدء المساعد باستخدام root. انقر على «إعادة المحاولة» واسمح لـ Mika عند ظهور الطلب، أو استخدم تصحيح الأخطاء اللاسلكي.</string>
     <string name="fail_root_no_answer">لم يستجب root</string>

@@ -228,6 +228,11 @@ fun PhoneSetupScreen(status: SystemStatus, repair: Boolean, onFix: (Fix) -> Unit
         usbCommand = usbCommand,
         onAskUsb = { usbAsked = true },
         onCopyUsbCommand = copyUsbCommand,
+        onWirelessPairing = {
+            revisit = null
+            confirmed = confirmed - SetupStep.WirelessDebugging
+            pairing.startRepair()
+        },
     )
     // 卡在哪一步都能把诊断信息发给作者:用的是引导页此刻的输入,用户确认过的步骤也在里面
     if (diagnosticsOpen) {
@@ -269,6 +274,7 @@ fun PhoneSetupContent(
     usbCommand: String? = null,
     onAskUsb: () -> Unit = {},
     onCopyUsbCommand: () -> Unit = {},
+    onWirelessPairing: () -> Unit = {},
 ) {
     val canRevisit = view.phase == SetupPhase.Guide || view.phase == SetupPhase.Failed
     fun revisitable(step: SetupStep) = canRevisit && step != view.current && step in PhoneSetupFlow.REVISITABLE &&
@@ -309,7 +315,7 @@ fun PhoneSetupContent(
                             ) {
                                 if (step == view.current) CurrentStepBody(
                                     step, view, onStepAction, onFailureFix, onAllowNotifications, onOpenPairingChannel, headsUpLowered, onOpenHeadsUp,
-                                    onConfirmStep, onSubmit, onAppInfo, onSkipAccessibility, onRevisit, onDiagnostics, onConnectPort,
+                                    onConfirmStep, onSubmit, onAppInfo, onSkipAccessibility, onRevisit, onDiagnostics, onConnectPort, onWirelessPairing,
                                 )
                                 val working = step == SetupStep.Connect && view.phase == SetupPhase.Working
                                 if (working) WorkingLine(scanning)
@@ -434,6 +440,7 @@ private fun CurrentStepBody(
     onRevisit: (SetupStep?) -> Unit,
     onDiagnostics: (() -> Unit)?,
     onConnectPort: ((Int) -> Unit)?,
+    onWirelessPairing: () -> Unit,
 ) {
     val copy = PhoneSetupCopy.step(step)
     Text(copy.body, Modifier.padding(top = 2.dp), style = MikaType.Caption, color = MikaTheme.colors.ink2)
@@ -448,6 +455,9 @@ private fun CurrentStepBody(
         // 要再运行 USB 命令时,下面的卡片里就有命令和复制按钮,不再重复一个
         if (f.fix != BuiltinShellFix.RunUsbCommand || !view.usbFallback) {
             PillButton(PhoneSetupCopy.fixLabel(f.fix), primary = true, tag = "setup-fix") { onFailureFix(f.fix) }
+        }
+        if (f.reason == BuiltinShellFailure.UsbHelperStopped) {
+            PillButton(stringResource(R.string.phone_pair_wireless), primary = false, tag = "setup-pair-wireless", onClick = onWirelessPairing)
         }
         // 自动找不到端口:让用户照着「无线调试」页面填
         if (step == SetupStep.Connect && f.reason == BuiltinShellFailure.ConnectFailed) onConnectPort?.let { ConnectPort(it) }

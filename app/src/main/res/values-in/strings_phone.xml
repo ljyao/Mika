@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="phone_pair_wireless">Pasangkan secara nirkabel</string>
     <string name="phone_title">Siapkan kontrol ponsel</string>
     <string name="phone_intro">Mika memakai aplikasi untuk Anda di layar virtual terpisah, jadi Anda tetap bisa memakai ponsel. Untuk itu Mika meminjam fitur bawaan Android “Proses debug USB” dan “Proses debug nirkabel”: pasangkan sekali, lalu Mika tersambung otomatis seterusnya — tanpa komputer. Tugas web dan berkas berjalan tanpa ini. Jangan ubah sakelar lain di Opsi developer kecuali diminta Mika: beberapa bisa menghapus isi ponsel Anda.</string>
     <string name="phone_later">Nanti saja</string>
@@ -128,16 +129,16 @@
     <string name="phone_connect_port_hint">Di halaman “Proses debug nirkabel”, angka setelah titik dua pada “Alamat IP &amp; port”, misalnya 41235</string>
     <string name="phone_connect_port_submit">Sambungkan</string>
     <string name="fail_usb_stopped">Pembantu ponsel berhenti</string>
-    <string name="fail_usb_stopped_body">Pembantu dimulai dengan perintah mulai USB, jadi tidak kembali sendiri (misalnya setelah ponsel dimulai ulang). Jalankan lagi perintah di bawah dan kontrol ponsel pulih.</string>
+    <string name="fail_usb_stopped_body">Asisten yang dimulai melalui USB telah berhenti. Gunakan pemasangan nirkabel jika didukung, atau jalankan lagi perintah di bawah.</string>
     <string name="phone_usb_ask">Tidak menemukan Proses debug nirkabel?</string>
     <string name="phone_usb_title">Tidak bisa memakai Proses debug nirkabel di ponsel ini? Mulai dari komputer saja</string>
-    <string name="phone_usb_body">Colokkan ponsel ke komputer dengan kabel USB dan jalankan perintah ini di komputer (cara lain menjalankan perintah adb ini untuk ponsel juga bisa). Jalankan lagi setelah ponsel dimulai ulang.</string>
+    <string name="phone_usb_body">Hubungkan ponsel ke komputer dan jalankan perintah ini. Setelah dimulai ulang, Anda juga dapat menggunakan pemasangan nirkabel jika didukung.</string>
     <string name="phone_usb_copy">Salin</string>
     <string name="phone_usb_copied">Perintah disalin</string>
     <string name="phone_usb_again_title">Jalankan lagi perintah mulai</string>
-    <string name="phone_usb_again_body">Colokkan ponsel ke komputer dengan kabel USB dan jalankan perintah ini di komputer (cara lain menjalankan perintah adb ini untuk ponsel juga bisa). Di sebagian besar ponsel, pembantu terus berjalan setelah kabel dicabut; jika berhenti, colokkan kembali kabelnya dan jalankan lagi perintahnya untuk memulihkan kontrol ponsel. Perintah ini juga diperlukan lagi setiap kali ponsel dimulai ulang.</string>
-    <string name="phone_success_note_usb">Biarkan Proses debug USB tetap aktif. Pembantu dimulai dengan perintah USB. Di sebagian besar ponsel, pembantu terus berjalan setelah kabel dicabut; jika berhenti, colokkan kembali kabelnya dan jalankan lagi perintahnya. Setelah ponsel dimulai ulang, buka Mika sekali lalu jalankan lagi perintahnya.</string>
-    <string name="phone_usage_note_usb">Pembantu bawaan Mika dimulai dengan perintah mulai USB. Di sebagian besar ponsel, pembantu terus berjalan setelah kabel dicabut; beberapa sistem menghentikannya saat kabel dicabut. Jika itu terjadi, colokkan kembali kabelnya dan jalankan lagi perintahnya untuk memulihkan kontrol ponsel. Biarkan “Proses debug USB” (di Opsi developer) tetap aktif; menonaktifkannya menghentikan kontrol ponsel. Setelah ponsel dimulai ulang, pembantu tidak kembali sendiri: buka Mika dan jalankan lagi perintahnya (bisa disalin di “Siapkan kontrol ponsel”). Jika ponsel ini punya “Proses debug nirkabel” yang berfungsi, memasangkan sekali membuat Mika tersambung sendiri setelah dimulai ulang.</string>
+    <string name="phone_usb_again_body">Hubungkan ponsel ke komputer dan jalankan perintah ini, atau gunakan pemasangan nirkabel di atas jika didukung.</string>
+    <string name="phone_success_note_usb">Biarkan debugging USB aktif. Jika asisten berhenti, gunakan pemasangan nirkabel di Mika atau jalankan lagi perintah USB.</string>
+    <string name="phone_usage_note_usb">Asisten dimulai melalui USB. Biarkan debugging USB aktif. Jika asisten berhenti, gunakan pemasangan nirkabel di ponsel yang mendukung atau jalankan lagi perintah USB.</string>
     <string name="fail_root_denied">Akses root ditolak</string>
     <string name="fail_root_denied_body">Mika tidak dapat memulai pembantu dengan root. Ketuk «Coba lagi» dan izinkan Mika saat permintaan muncul, atau gunakan debug nirkabel.</string>
     <string name="fail_root_no_answer">Root tidak merespons</string>

@@ -420,6 +420,21 @@ class PhoneSetupFlowTest {
         assertTrue(back.revisiting)
     }
 
+    @Test
+    fun usbHelperStoppedCanEnterWirelessPairingWithoutAComputer() {
+        val stopped = BuiltinShellStatus.Failed(BuiltinShellFailure.UsbHelperStopped)
+        val repair = usbOnly.copy(status = stopped, repair = true)
+        assertEquals(SetupStep.WirelessDebugging, PhoneSetupFlow.view(repair).current)
+        val pairing = PhoneSetupFlow.view(repair.copy(wirelessDebugging = true))
+        assertEquals(SetupStep.PairingCode, pairing.current)
+        assertEquals(StepMark.Done, pairing.marks[SetupStep.WirelessDebugging])
+        assertEquals(StepMark.Current, pairing.marks[SetupStep.PairingCode])
+        val connecting = PhoneSetupFlow.view(repair.copy(wirelessDebugging = true, status = BuiltinShellStatus.Connecting))
+        assertEquals(SetupPhase.Working, connecting.phase)
+        val ready = PhoneSetupFlow.view(repair.copy(wirelessDebugging = true, status = BuiltinShellStatus.Running, repair = false, restart = HelperRestart.Wireless))
+        assertEquals(SetupPhase.Success, ready.phase)
+    }
+
     /** 配对过、能用无线调试的手机不受影响:无线调试关着、助手不在时照旧回到那一步(打开后自动连上)。 */
     @Test
     fun pairedPhoneStillGoesBackToWirelessStep() {

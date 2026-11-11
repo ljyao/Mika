@@ -271,7 +271,7 @@ object PhoneSetupFlow {
         SetupStep.entries.associateWith { s ->
             when {
                 s.ordinal < done && s == SetupStep.Accessibility && !i.accessibility && s !in i.confirmed -> StepMark.Skipped
-                s.ordinal < done && s in WIRELESS_STEPS && i.restart == HelperRestart.UsbCommand -> StepMark.Skipped
+                s.ordinal < done && s in WIRELESS_STEPS && i.restart == HelperRestart.UsbCommand && !i.repair -> StepMark.Skipped
                 s.ordinal < done -> StepMark.Done
                 s == current -> mark
                 else -> StepMark.Todo

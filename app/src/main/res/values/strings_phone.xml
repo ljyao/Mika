@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="phone_pair_wireless">Pair wirelessly</string>
     <string name="phone_title">Set up phone control</string>
     <string name="phone_intro">Mika uses apps for you on a separate virtual screen, so you can keep using your phone. For this it borrows Android’s built-in “USB debugging” and “Wireless debugging”: pair once and Mika connects automatically from then on — no computer needed. Web and file tasks work without this. Don’t change any other switch in Developer options unless Mika asks you to: some can erase your phone.</string>
     <string name="phone_later">Not now</string>
@@ -128,16 +129,16 @@
     <string name="phone_connect_port_hint">On the “Wireless debugging” page, the number after the colon in “IP address &amp; port”, e.g. 41235</string>
     <string name="phone_connect_port_submit">Connect</string>
     <string name="fail_usb_stopped">Phone helper stopped</string>
-    <string name="fail_usb_stopped_body">It was started with the USB start command, so it doesn’t come back by itself (for example after the phone restarts). Run the command below again and phone control is back.</string>
+    <string name="fail_usb_stopped_body">The USB helper has stopped. Use wireless pairing, if supported, or run the command below again.</string>
     <string name="phone_usb_ask">Can’t find Wireless debugging?</string>
     <string name="phone_usb_title">Can’t use Wireless debugging on this phone? Start from a computer instead</string>
-    <string name="phone_usb_body">Plug the phone into a computer with a USB cable and run this command on the computer (any other way to run this adb command for the phone works too). Run it again after the phone restarts.</string>
+    <string name="phone_usb_body">Connect the phone to a computer and run this command. After a restart, you can also use wireless pairing if supported.</string>
     <string name="phone_usb_copy">Copy</string>
     <string name="phone_usb_copied">Command copied</string>
     <string name="phone_usb_again_title">Run the start command again</string>
-    <string name="phone_usb_again_body">Plug the phone into a computer with a USB cable and run this command on the computer (any other way to run this adb command for the phone works too). On most phones it keeps running after you unplug the cable; if it stops, plug in and run the command again to restore phone control. It’s also needed again after every phone restart.</string>
-    <string name="phone_success_note_usb">Keep USB debugging on. The helper was started with the USB command. On most phones it keeps running after you unplug the cable; if it stops, plug in and run the command again. After a phone restart, open Mika once and run the command again.</string>
-    <string name="phone_usage_note_usb">Mika’s built-in helper was started with the USB start command. On most phones it keeps running after you unplug the cable; on some systems unplugging stops it. If that happens, plug in and run the command again to restore phone control. Keep “USB debugging” (in Developer options) on; turning it off stops phone control. After a phone restart the helper doesn’t come back by itself: open Mika and run the command again (you can copy it in “Set up phone control”). If this phone has a working “Wireless debugging”, pairing once lets Mika reconnect by itself after restarts.</string>
+    <string name="phone_usb_again_body">Connect the phone to a computer and run this command, or use wireless pairing above if your phone supports it.</string>
+    <string name="phone_success_note_usb">Keep USB debugging on. If the helper stops, use wireless pairing in Mika or run the USB command again.</string>
+    <string name="phone_usage_note_usb">The helper was started by USB. Keep USB debugging on. If the helper stops, use wireless pairing on supported phones or run the USB command again.</string>
     <string name="fail_root_denied">Root access was denied</string>
     <string name="fail_root_denied_body">Mika couldn’t start the phone helper with root. Tap “Retry” and allow Mika when the permission prompt appears, or use Wireless debugging instead.</string>
     <string name="fail_root_no_answer">Root didn’t answer</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="phone_pair_wireless">무선으로 페어링</string>
     <string name="phone_title">휴대전화 제어 설정</string>
     <string name="phone_intro">Mika는 별도의 가상 화면에서 앱을 대신 사용해서, 그동안 휴대전화를 계속 쓸 수 있어요. 이를 위해 Android에 내장된 “USB 디버깅”과 “무선 디버깅”을 빌려 써요. 한 번 페어링하면 그다음부터는 Mika가 자동으로 연결해요. 컴퓨터는 필요 없어요. 웹과 파일 작업은 이 설정 없이도 돼요. Mika가 요청하지 않는 한 개발자 옵션의 다른 스위치는 바꾸지 마세요. 일부는 휴대전화를 초기화할 수 있어요.</string>
     <string name="phone_later">나중에</string>
@@ -128,16 +129,16 @@
     <string name="phone_connect_port_hint">“무선 디버깅” 페이지의 “IP 주소 및 포트”에서 콜론 뒤의 숫자예요. 예: 41235</string>
     <string name="phone_connect_port_submit">연결</string>
     <string name="fail_usb_stopped">휴대전화 도우미가 멈췄어요</string>
-    <string name="fail_usb_stopped_body">USB 시작 명령으로 시작해서 저절로 다시 시작되지 않아요(예: 휴대전화를 재부팅한 뒤). 아래 명령을 다시 실행하면 휴대전화 제어가 돌아와요.</string>
+    <string name="fail_usb_stopped_body">USB로 시작한 도우미가 중지되었습니다. 지원되는 기기에서는 무선 페어링을 사용하거나 아래 명령을 다시 실행하세요.</string>
     <string name="phone_usb_ask">무선 디버깅을 찾을 수 없나요?</string>
     <string name="phone_usb_title">이 휴대전화에서 무선 디버깅을 쓸 수 없나요? 대신 컴퓨터에서 시작하세요</string>
-    <string name="phone_usb_body">USB 케이블로 휴대전화를 컴퓨터에 연결하고 컴퓨터에서 이 명령을 실행하세요(이 휴대전화용 adb 명령을 실행할 수 있는 다른 방법도 괜찮아요). 휴대전화를 재부팅한 뒤에는 다시 실행하세요.</string>
+    <string name="phone_usb_body">휴대전화를 컴퓨터에 연결하고 이 명령을 실행하세요. 재부팅 후 지원되는 기기에서는 무선 페어링도 사용할 수 있습니다.</string>
     <string name="phone_usb_copy">복사</string>
     <string name="phone_usb_copied">명령을 복사했어요</string>
     <string name="phone_usb_again_title">시작 명령 다시 실행</string>
-    <string name="phone_usb_again_body">USB 케이블로 휴대전화를 컴퓨터에 연결하고 컴퓨터에서 이 명령을 실행하세요(이 휴대전화용 adb 명령을 실행할 수 있는 다른 방법도 괜찮아요). 휴대전화 재부팅 후에도 명령을 다시 실행하세요. 대부분에서는 케이블을 뽑은 뒤에도 도우미가 계속 실행되지만, 멈추면 케이블을 다시 연결하고 명령을 다시 실행하면 제어를 복구할 수 있어요.</string>
-    <string name="phone_success_note_usb">USB 디버깅은 계속 켜 두세요. 도우미를 USB 명령으로 시작했어요. 대부분에서는 케이블을 뽑은 뒤에도 계속 실행되지만, 멈추면 케이블을 다시 연결하고 명령을 다시 실행하세요. 휴대전화를 재부팅하면 돌아오지 않아요. Mika를 열고 명령을 다시 실행하세요.</string>
-    <string name="phone_usage_note_usb">Mika의 내장 도우미는 USB 시작 명령으로 시작했어요. 대부분에서는 케이블을 뽑은 뒤에도 계속 실행되지만, 일부 시스템에서는 케이블을 뽑으면 도우미가 멈춰요. 그런 경우 케이블을 다시 연결하고 명령을 다시 실행하면 제어를 복구할 수 있어요. “USB 디버깅”(개발자 옵션)은 켜 두세요. 끄면 휴대전화 제어가 멈춰요. 휴대전화를 재부팅하면 도우미가 저절로 돌아오지 않아요. Mika를 열고 명령을 다시 실행하세요(“휴대전화 제어 설정”에서 복사할 수 있어요). 이 휴대전화에서 “무선 디버깅”이 되면 한 번 페어링해 두는 것으로 재부팅 후에도 Mika가 알아서 다시 연결해요.</string>
+    <string name="phone_usb_again_body">휴대전화를 컴퓨터에 연결해 이 명령을 실행하거나, 지원되는 기기에서는 위의 무선 페어링을 사용하세요.</string>
+    <string name="phone_success_note_usb">USB 디버깅을 켜 두세요. 도우미가 중지되면 Mika에서 무선 페어링을 하거나 USB 명령을 다시 실행하세요.</string>
+    <string name="phone_usage_note_usb">도우미가 USB로 시작되었습니다. USB 디버깅을 켜 두세요. 중지되면 지원되는 기기에서 무선 페어링을 하거나 USB 명령을 다시 실행하세요.</string>
     <string name="fail_root_denied">root 권한이 거부되었어요</string>
     <string name="fail_root_denied_body">root로 도우미를 시작하지 못했어요. “다시 시도”를 누르고 권한 요청이 나타나면 Mika를 허용하거나 무선 디버깅을 사용하세요.</string>
     <string name="fail_root_no_answer">root가 응답하지 않았어요</string>

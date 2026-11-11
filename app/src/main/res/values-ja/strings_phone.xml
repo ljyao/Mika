@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="phone_pair_wireless">ワイヤレスでペア設定</string>
     <string name="phone_title">スマホの操作を設定</string>
     <string name="phone_intro">Mika は、別の仮想画面であなたの代わりにアプリを操作するので、その間もスマホを使い続けられます。そのために、Android 標準の「USB デバッグ」と「ワイヤレス デバッグ」を借ります。一度ペア設定すれば、以降は Mika が自動で接続します。パソコンは不要です。ウェブやファイルのタスクは、これがなくても使えます。「開発者向けオプション」のほかのスイッチは、Mika に頼まれない限り変更しないでください。スマホのデータが消えるものもあります。</string>
     <string name="phone_later">あとで</string>
@@ -128,16 +129,16 @@
     <string name="phone_connect_port_hint">「ワイヤレス デバッグ」ページの「IP アドレスとポート」にある、コロンのあとの数字(例: 41235)</string>
     <string name="phone_connect_port_submit">接続</string>
     <string name="fail_usb_stopped">スマホのヘルパーが停止しました</string>
-    <string name="fail_usb_stopped_body">USB の開始コマンドで起動したため、(スマホの再起動後などに)自動では復帰しません。下のコマンドをもう一度実行すると、スマホの操作が戻ります。</string>
+    <string name="fail_usb_stopped_body">USB で起動した助手が停止しました。対応端末ではワイヤレスでペア設定するか、下のコマンドを再実行できます。</string>
     <string name="phone_usb_ask">ワイヤレス デバッグが見つかりませんか？</string>
     <string name="phone_usb_title">このスマホでワイヤレス デバッグを使えませんか？ 代わりにパソコンから開始します</string>
-    <string name="phone_usb_body">スマホを USB ケーブルでパソコンにつないで、パソコンでこのコマンドを実行します(この adb コマンドをスマホに対して実行できる方法なら、ほかの方法でもかまいません)。スマホの再起動後は、もう一度実行してください。</string>
+    <string name="phone_usb_body">スマートフォンをパソコンに接続してこのコマンドを実行します。再起動後は、対応端末でワイヤレスペア設定も使用できます。</string>
     <string name="phone_usb_copy">コピー</string>
     <string name="phone_usb_copied">コマンドをコピーしました</string>
     <string name="phone_usb_again_title">開始コマンドをもう一度実行</string>
-    <string name="phone_usb_again_body">スマホを USB ケーブルでパソコンにつないで、パソコンでこのコマンドを実行します(この adb コマンドをスマホに対して実行できる方法なら、ほかの方法でもかまいません)。多くのスマホではケーブルを抜いても動き続けますが、停止した場合はケーブルを接続してコマンドをもう一度実行すれば操作を再開できます。スマホを再起動した後にも、もう一度実行してください。</string>
-    <string name="phone_success_note_usb">USB デバッグはオンのままにしてください。ヘルパーは USB コマンドで起動しました。多くのスマホではケーブルを抜いても動き続けますが、停止した場合はケーブルを接続してコマンドをもう一度実行してください。スマホの再起動後は、Mika を一度開いてからコマンドをもう一度実行してください。</string>
-    <string name="phone_usage_note_usb">Mika 内蔵のヘルパーは USB の開始コマンドで起動しました。多くのスマホではケーブルを抜いても動き続けますが、一部のシステムではケーブルを抜くと停止します。その場合はケーブルを接続してコマンドをもう一度実行すれば、スマホの操作を再開できます。「USB デバッグ」(開発者向けオプション内)はオンのままにしてください。オフにすると、スマホの操作が止まります。スマホの再起動後、ヘルパーは自動では復帰しません。Mika を開いて、もう一度コマンドを実行してください(「スマホの操作を設定」でコピーできます)。このスマホで「ワイヤレス デバッグ」が使えるなら、一度ペア設定すると、再起動後も Mika が自動で再接続できます。</string>
+    <string name="phone_usb_again_body">スマートフォンをパソコンに接続してこのコマンドを実行するか、対応端末では上のワイヤレスペア設定を使用します。</string>
+    <string name="phone_success_note_usb">USB デバッグをオンにしてください。助手が停止したら、Mika でワイヤレスペア設定を行うか USB コマンドを再実行してください。</string>
+    <string name="phone_usage_note_usb">助手は USB で起動しました。USB デバッグをオンにしてください。停止後は、対応端末でワイヤレスペア設定を行うか USB コマンドを再実行できます。</string>
     <string name="fail_root_denied">root 権限が拒否されました</string>
     <string name="fail_root_denied_body">root でヘルパーを起動できませんでした。「再試行」をタップして表示された許可画面で Mika を許可するか、ワイヤレス デバッグを使用してください。</string>
     <string name="fail_root_no_answer">root から応答がありません</string>

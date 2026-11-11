@@ -24,3 +24,7 @@ __pycache__/
 
 # plugin build output
 plugins/dist/
+
+# Local release signing material (keystore + passwords)
+/signing/*
+!/signing/keystore.properties.example

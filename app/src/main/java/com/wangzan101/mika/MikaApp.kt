@@ -360,6 +360,11 @@ class MikaApp : Application(), WebOwner, SandboxOwner, TaskEnvironment.Owner, Ph
         com.wangzan101.mika.settings.RecommendedTaskStore(java.io.File(filesDir, com.wangzan101.mika.settings.RecommendedTaskStore.FILE))
     }
 
+    /** 快捷任务独立保存,不影响首页推荐任务。 */
+    val shortcuts: com.wangzan101.mika.settings.RecommendedTaskStore by lazy {
+        com.wangzan101.mika.settings.RecommendedTaskStore(java.io.File(filesDir, "shortcuts.json"))
+    }
+
     val savedChecklists by lazy {
         com.wangzan101.mika.chat.SavedChecklistStore(
             java.io.File(filesDir, com.wangzan101.mika.chat.SavedChecklistStore.FILE),

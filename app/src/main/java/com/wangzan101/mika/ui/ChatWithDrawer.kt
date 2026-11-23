@@ -89,6 +89,7 @@ fun ChatWithDrawer(
     conversationTitle: (String) -> String? = { null },
     /** 侧栏搜索用的索引;没有时侧栏不显示搜索框。 */
     search: ConversationSearch? = null,
+    onShortcuts: () -> Unit = {},
     onPersonal: () -> Unit = {},
     onPlans: () -> Unit = {},
     onMemory: () -> Unit = {},
@@ -424,6 +425,7 @@ fun ChatWithDrawer(
                     containerColor = Color.Transparent,
                     permanent = permanent,
                     onShowScreen = if (screenAvailable) ({ preferConversations = false; vm.expandPip() }) else null,
+                    onShortcuts = { leave(onShortcuts) },
                     onPersonal = { leave(onPersonal) },
                     onPlans = { leave(onPlans) },
                     onMemory = { leave(onMemory) },

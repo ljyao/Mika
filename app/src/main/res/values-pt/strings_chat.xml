@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="shortcuts_title">Atalhos</string>
     <string name="chat_confirmed_goals">Objetivos confirmados: %1$d/%2$d</string>
     <string name="chat_last_confirmed_goals">Última confirmação: %1$d/%2$d</string>
     <string name="chat_greeting_morning">Bom dia</string>
@@ -295,6 +296,16 @@
     <string name="chat_placeholder_queue">Escreva a próxima tarefa…</string>
     <string name="voice_placeholder_queue">Diga a próxima tarefa…</string>
     <string name="steer_received_paused">Entendi — será usado quando a tarefa continuar</string>
+    <string name="shortcuts_unreadable">Não foi possível ler os atalhos salvos. Por enquanto eles não podem ser editados.</string>
+    <string name="shortcuts_empty">Ainda não há atalhos</string>
+    <string name="shortcuts_empty_sub">Adicione um atalho para exibi-lo acima da caixa de mensagem.</string>
+    <string name="shortcuts_add">Adicionar atalho</string>
+    <string name="shortcuts_edit">Editar atalho</string>
+    <string name="shortcuts_too_many">Você pode salvar até %1$d atalhos.</string>
+    <string name="shortcuts_footer">Toque em um atalho acima da caixa de mensagem para executá-lo imediatamente.</string>
+    <string name="shortcuts_delete_title">Excluir este atalho?</string>
+    <string name="shortcuts_delete_body">Ele não aparecerá mais acima da caixa de mensagem.</string>
+    <string name="shortcuts_reset_body">O arquivo ilegível será substituído por uma lista vazia.</string>
     <plurals name="drawer_archive_many_done">
         <item quantity="one">%1$d conversa arquivada</item>
         <item quantity="many">%1$d conversas arquivadas</item>

@@ -1,12 +1,8 @@
 package com.wangzan101.mika.ui
 
-import com.wangzan101.mika.cap.sandbox.AttachmentFailure
-import com.wangzan101.mika.cap.sandbox.AttachmentFailureReason
-import com.wangzan101.mika.core.agent.QuoteMessage
-import com.wangzan101.mika.ui.components.keepsKeyboard
-import com.wangzan101.mika.ui.components.pageBackground
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,8 +16,11 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -49,21 +48,29 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.wangzan101.mika.R
+import com.wangzan101.mika.cap.sandbox.AttachmentFailure
+import com.wangzan101.mika.cap.sandbox.AttachmentFailureReason
+import com.wangzan101.mika.core.agent.QuoteMessage
+import com.wangzan101.mika.i18n.trPlural
+import com.wangzan101.mika.settings.RecommendedTask
 import com.wangzan101.mika.ui.components.GlassBackdrop
 import com.wangzan101.mika.ui.components.GlassBar
+import com.wangzan101.mika.ui.components.keepsKeyboard
+import com.wangzan101.mika.ui.components.pageBackground
 import com.wangzan101.mika.ui.theme.MikaIcons
 import com.wangzan101.mika.ui.theme.MikaSize
 import com.wangzan101.mika.ui.theme.MikaTheme
 import com.wangzan101.mika.ui.theme.MikaType
 import com.wangzan101.mika.voice.HoldToTalk
 import com.wangzan101.mika.voice.VoiceSource
-import com.wangzan101.mika.i18n.trPlural
 
 /**
  * 玻璃胶囊输入栏:左边「＋」,右边发送(没内容时灰);任务在跑时多一个停止,补充消息先排在输入栏上方。
@@ -89,6 +96,8 @@ internal fun Composer(
     onPlus: (() -> Unit)? = null,
     /** 附件已启用但此刻不能加:「＋」还在,点了只给提示。 */
     attachBlocked: Boolean = false,
+    shortcuts: List<RecommendedTask> = emptyList(),
+    onShortcut: (String) -> Unit = {},
     attachments: List<PendingAttachment> = emptyList(),
     importing: Boolean = false,
     rejected: List<AttachmentFailure> = emptyList(),
@@ -165,6 +174,24 @@ internal fun Composer(
             .padding(start = ComposerInset, end = ComposerInset, top = 10.dp, bottom = 6.dp),
     ) {
         Column(Modifier.fillMaxWidth()) {
+            if (mode == ComposerMode.Idle && shortcuts.isNotEmpty()) {
+                LazyRow(
+                    Modifier.fillMaxWidth().padding(bottom = 8.dp).testTag("shortcut-row"),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(shortcuts.size, key = { shortcuts[it].id }) { index ->
+                        val shortcut = shortcuts[index]
+                        Text(
+                            shortcut.title,
+                            Modifier.widthIn(max = 220.dp).clip(RoundedCornerShape(14.dp)).background(c.bg)
+                                .border(1.dp, c.ink3.copy(alpha = 0.25f), RoundedCornerShape(14.dp))
+                                .clickable(role = Role.Button) { onShortcut(shortcut.prompt) }
+                                .padding(horizontal = 14.dp, vertical = 10.dp),
+                            style = MikaType.Body, color = c.ink, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                }
+            }
             FollowUpTray(
                 queued, active = mode != ComposerMode.Idle, canGuide = mode == ComposerMode.Busy, onGuide = onGuideQueued,
                 onEdit = onEditQueued, onCancel = onCancelQueued, onStartNow = onStartQueued, onActions = onQueueActions,

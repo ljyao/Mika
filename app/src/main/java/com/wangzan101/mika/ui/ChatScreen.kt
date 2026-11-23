@@ -147,6 +147,12 @@ fun ChatScreen(
             ?: MutableStateFlow<List<RecommendedTask>>(emptyList())
     }
     val recommendedTasks by recommendedTasksFlow.collectAsState()
+    val shortcutStore = (LocalContext.current.applicationContext as? MikaApp)?.shortcuts
+    val shortcutsFlow = remember(shortcutStore) {
+        shortcutStore?.also { it.ensureLoaded { emptyList() } }?.tasks
+            ?: MutableStateFlow<List<RecommendedTask>>(emptyList())
+    }
+    val shortcuts by shortcutsFlow.collectAsState()
     val ui by vm.ui.collectAsState()
     val projects by vm.projects.collectAsState()
     val currentProject = remember(projects, ui.projectId) { ui.projectId?.let { pid -> projects.firstOrNull { it.id == pid } } }
@@ -472,6 +478,8 @@ fun ChatScreen(
             mode = ui.composer,
             hasHistory = ui.exchanges.isNotEmpty(),
             onSend = { vm.send(input, check) },
+            shortcuts = if (showPlus) emptyList() else shortcuts,
+            onShortcut = { prompt -> vm.runShortcut(prompt, check) },
             onStop = vm::cancel,
             queued = ui.queued,
             onGuideQueued = { id ->

@@ -76,6 +76,7 @@ fun ChatDrawer(
     onPlans: () -> Unit = {},
     onMemory: () -> Unit = {},
     onBrowser: () -> Unit = {},
+    onShortcuts: () -> Unit = {},
     onScreens: () -> Unit = {},
     onSettings: () -> Unit,
     onOpen: (DrawerConversation) -> Unit,
@@ -151,10 +152,16 @@ fun ChatDrawer(
             // 多选从长按菜单进;进去以后这里换成「取消」,返回键同样能退出
             if (selecting) HeaderAction(stringResource(R.string.cancel), "drawer-select-cancel", c.ink2, onExitSelect)
         }
+        if (!searchActive && !selecting && !archivedView && !permanent) {
+            Column(Modifier.padding(horizontal = 12.dp, vertical = 6.dp)) {
+                NavEntry(MikaIcons.Apps, stringResource(R.string.shortcuts_title), onClick = onShortcuts)
+            }
+        }
         if (!searchActive && !selecting && !archivedView && permanent) {
             Column(Modifier.padding(horizontal = 12.dp, vertical = 6.dp)) {
                 onShowScreen?.let { NavEntry(MikaIcons.Screens, stringResource(R.string.screens_preview), onClick = it) }
                 NavEntry(MikaIcons.Message, stringResource(R.string.drawer_personal), onClick = onPersonal)
+                NavEntry(MikaIcons.Apps, stringResource(R.string.shortcuts_title), onClick = onShortcuts)
                 NavEntry(MikaIcons.Clock, stringResource(R.string.drawer_plans), onClick = onPlans)
                 NavEntry(MikaIcons.Heart, stringResource(R.string.memory_and_skills), onClick = onMemory)
                 NavEntry(MikaIcons.Globe, stringResource(R.string.drawer_browser), onClick = onBrowser)

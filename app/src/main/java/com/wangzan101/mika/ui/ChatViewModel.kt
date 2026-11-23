@@ -367,6 +367,8 @@ class ChatViewModel(
     // ChatSendOps
     fun quote(from: QuoteMessage.From, text: String) = sending.quote(from, text)
     fun clearQuote() = sending.clearQuote()
+    fun runShortcut(text: String, check: Prerequisites.Check): Boolean = sending.runShortcut(text, check)
+
     fun send(text: String, check: Prerequisites.Check): Boolean = sending.send(text, check)
     fun setFollowUpMode(mode: FollowUpMode) = sending.setFollowUpMode(mode)
     fun startQueued() = sending.startQueued()

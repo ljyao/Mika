@@ -660,6 +660,7 @@ private fun MikaRoot(
                     }
                 }
         }
+        Route.Shortcuts -> RecommendedTasksScreen(app.shortcuts, onBack = back, shortcuts = true)
         Route.Settings -> {
             val autonomous by app.approvals.autonomous.collectAsState()
             SettingsScreen(store, status, release, onFix, onBack = back, onOpenMemory = { nav.push(Route.Memory) },
@@ -836,6 +837,7 @@ private fun MikaRoot(
                 onRegularChat = nav::reset,
                 resetKey = nav.resetSerial,
                 onPersonal = { nav.show(Route.Personal) },
+                onShortcuts = { openFromSidebar(Route.Shortcuts) },
                 onPlans = { openFromSidebar(Route.Plans) },
                 onMemory = { openFromSidebar(Route.Memory) },
                 onBrowser = { openFromSidebar(Route.Browser) },

@@ -56,12 +56,6 @@ The Skill is the repository's `tools/mika` folder: `SKILL.md` tells the agent ho
 
 If a `mika` command is already installed on the computer, the Skill uses it first. Updating the Skill does not update that CLI; maintain each separately.
 
-### Doubao CLI
-
-Install and sign in to the [official Doubao CLI](https://www.npmjs.com/package/@bytedance/doubao-cli) on your computer and make sure Python 3.10+ is available. Follow the steps above with `~/Doubao/skills` as the skills directory (`%USERPROFILE%\Doubao\skills` on Windows). Copy the entire `tools/mika` folder so it contains both `mika/SKILL.md` and `mika/scripts/mika_cli.py` under the skills directory.
-
-Follow the [connection check](#after-installing-check-the-connection) below, then start a fresh `doubao` session. For example, ask “Use the mika skill to have my USB-connected phone explain leap years in one sentence. Wait for the task to finish and tell me the result.” Handle any phone takeover or confirmation on the phone.
-
 ## Skill: update, roll back and remove
 
 - **Update or roll back**: move the old `mika` folder out of the skills directory as a backup, then copy the whole `tools/mika` folder of the target version. Do not copy over the old folder.

@@ -56,6 +56,12 @@ Skill 就是仓库里的 `tools/mika` 文件夹：`SKILL.md` 告诉 Agent 怎么
 
 电脑上已有 `mika` 命令时，Skill 会优先用它；更新 Skill 不会更新全局 CLI，两者各自维护。
 
+### 豆包 CLI
+
+电脑上先安装并登录[官方豆包 CLI](https://www.npmjs.com/package/@bytedance/doubao-cli)，并准备 Python 3.10+。按上面的步骤把完整的 `tools/mika` 文件夹放到豆包 CLI 的用户技能目录 `~/Doubao/skills`（Windows 为 `%USERPROFILE%\Doubao\skills`），确保下一级是 `mika/SKILL.md`，且 `mika/scripts/mika_cli.py` 也在。
+
+按下文的[连接检查](#装好之后连接检查)连好手机，然后重新运行 `doubao`。例如，输入「使用 mika 技能，让我通过 USB 连接的手机用一句话解释什么是闰年，等任务完成后把结果告诉我」。涉及手机接管或确认时，在手机上处理。
+
 ## Skill：升级、回退和卸载
 
 - **升级或回退**：把旧的 `mika` 文件夹移到技能目录之外备份，再复制目标版本的整个 `tools/mika` 文件夹，不要在旧文件夹上合并复制。

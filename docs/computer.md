@@ -20,6 +20,8 @@ AI Agent 请直接看 [Agent 快速路径](agent-quickstart.md)。
 
 拿不准时：Agent 支持 Skill 就用 Skill，否则用 MCP。
 
+用豆包 CLI 时，按[豆包 CLI 安装 Mika Skill](computer-install.md#豆包-cli)接入。
+
 ## 第二步：选连法（USB 或 Wi-Fi / VPN）
 
 两种入口都能用这两种连法。在手机的 设置 › 连接电脑 里，「CLI / Skill」和「MCP」共用同一个连接方式选择。

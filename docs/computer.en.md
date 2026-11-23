@@ -20,6 +20,8 @@ Both entry points reach the same task service on the phone. **Normally one is en
 
 Not sure? If your agent supports Skills, use the Skill; otherwise use MCP.
 
+For Doubao CLI, follow the [Mika Skill setup for Doubao](computer-install.en.md#doubao-cli).
+
 ## Step 2: pick a connection (USB or Wi-Fi / VPN)
 
 Both entry points work over either connection. In Settings › Connect a computer on the phone, "CLI / Skill" and "MCP" share the same connection selector.
